@@ -1,9 +1,10 @@
 package Testuser
 
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.StringType
-import org.grails.plugins.excelimport.*
+import org.grails.plugins.excelimport.AbstractExcelImporter
+import org.grails.plugins.excelimport.DefaultImportCellCollector
+import org.grails.plugins.excelimport.ExcelImportService
 import org.springframework.beans.factory.annotation.Autowired
-import static org.grails.plugins.excelimport.ExpectedPropertyType.StringType
 
 class HotelRoomsExcelImporter extends AbstractExcelImporter{
 
@@ -13,8 +14,8 @@ class HotelRoomsExcelImporter extends AbstractExcelImporter{
     @Autowired
     ExcelImportService excelImportService
 
-     HotelRoomsExcelImporter(file){
-       super(file)
+    HotelRoomsExcelImporter(file){
+        super(file)
         excelImportService = ExcelImportService.getService()
     }
 
@@ -38,7 +39,7 @@ class HotelRoomsExcelImporter extends AbstractExcelImporter{
                 CONFIG_PAYMENT_COLUMN_MAP,
                 cellReporter,
                 configuratiomMap
-        ) as List<Map>
+        )
     }
 
 }
