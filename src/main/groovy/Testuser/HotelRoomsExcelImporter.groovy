@@ -14,7 +14,7 @@ class HotelRoomsExcelImporter extends AbstractExcelImporter{
     ExcelImportService excelImportService
 
      HotelRoomsExcelImporter(file){
-        super(file)
+       super(file)
         excelImportService = ExcelImportService.getService()
     }
 
@@ -38,7 +38,7 @@ class HotelRoomsExcelImporter extends AbstractExcelImporter{
                 CONFIG_PAYMENT_COLUMN_MAP,
                 cellReporter,
                 configuratiomMap
-        )
+        ) as List<Map>
     }
 
 }

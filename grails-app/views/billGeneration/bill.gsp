@@ -152,9 +152,9 @@
             <td><span><input type="text" name="paytmAdvance" id="paytmAdvance"  title="paytmAdvance" value="${booking.billGeneration.paytmAdvance}"/></span></td>
         </tr>
         <tr>
-            <th colspan="2"><span>Advance Paid</span></th>
+            <th><span>Advance Paid</span></th>
             <td><span><input type="text" name="advPaymentAmt" id="advPaymentAmt" title="advPaymentAmt" value="${advPaymentAmt}" onChange="updateTotal()"/></span></td>
-            <th colspan="2"><span>Balance Payment By</span><br></th>
+            <th><span>Balance Payment By</span><br></th>
             <td><span><g:select name="balPaymentBy" id="balPaymentBy" from="['Cash','Oyo','GoIbibo','PayTM']" noSelection="['':'-Select-']"/></span></td>
             <th><span>Balance Payment</span></th>
             <td><span><input type="text" name="balPaymentAmt" id="balPaymentAmt" title="balPaymentAmt"  value="${booking.billGeneration.balPaymentAmt}"/></span></td>

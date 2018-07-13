@@ -6,7 +6,7 @@ import Testuser.RoomDetails
 
 class HotelDetails {
     String billSeries
-    def phoneNo
+    String phoneNo
     byte[] logo
     testuser.HotelRegistration hotelRegistration
     static hasMany = [bookings:Booking, hotelRooms:HotelRooms]

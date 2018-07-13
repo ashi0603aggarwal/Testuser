@@ -158,7 +158,10 @@ class BillGenerationController {
         testuser.HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
         def total= booking.billGeneration.total-booking.billGeneration.gstTotal
         def tRoom= booking.billGeneration.roomDetails.size().toInteger()
-        render(view: 'createinvoice',model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
+        def createPdfReport = {
+            renderPdf(template: '/billGeneration/createinvoice', model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom], filename: "invoice")
+        }
+        //render(view: 'createinvoice',model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
     }
 
     def bill(){

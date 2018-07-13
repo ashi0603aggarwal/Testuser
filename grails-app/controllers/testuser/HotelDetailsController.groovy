@@ -10,6 +10,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 
+
 import static org.springframework.http.HttpStatus.*
 
 @Secured('ROLE_USER')
@@ -99,9 +100,11 @@ class HotelDetailsController {
         def logo = request.getFile("logoFile")
         hotelDetails1.logo = logo.getBytes()
         def file = request.getFile("hotelRoomsFile")
+
         def paymentDatas = []
         if(file && !file.empty){
             def newFile = File.createTempFile('grails', 'hotelRoomsFile')
+            log.error("ABCDEFGHIJ"+newFile)
             file.transferTo(newFile)
             def importer = new HotelRoomsExcelImporter(newFile)
             paymentDatas = importer.list()
@@ -117,6 +120,7 @@ class HotelDetailsController {
                 hotelDetails1.hotelRooms.add(hotelRooms)
             }
         }
+
         if (hotelDetails1 == null) {
             notFound()
             return
@@ -137,6 +141,7 @@ class HotelDetailsController {
         User user = (User)springSecurityService.currentUser
         testuser.HotelRegistration hotelRegistration = testuser.HotelRegistration.findByEmail(user.username)
         testuser.HotelDetails hotelDetails = testuser.HotelDetails.findByHotelRegistration(hotelRegistration)
+        println(hotelDetails.phoneNo)
         render(view:'updateHotelDetails',model: [hotelDetails:hotelDetails])
     }
 
@@ -147,15 +152,16 @@ class HotelDetailsController {
         testuser.HotelDetails hotelDetails = testuser.HotelDetails.findByHotelRegistration(hotelRegistration)
         hotelDetails.billSeries = params.billSeries
         hotelDetails.phoneNo = params.phoneNo
-        println(params.phoneNo)
         def logo = request.getFile("logoFile")
         hotelDetails.logo = logo.getBytes()
         def file = request.getFile("hotelRoomsFile")
         def paymentDatas = []
         if(file && !file.empty){
             def newFile = File.createTempFile('grails', 'hotelRoomsFile')
+            log.error("ABCDEFGHIJ"+newFile)
             file.transferTo(newFile)
             def importer = new HotelRoomsExcelImporter(newFile)
+            log.error("ABCDEFGHIJ"+importer)
             paymentDatas = importer.list()
             if (paymentDatas){
                 hotelDetails.hotelRooms =[]
