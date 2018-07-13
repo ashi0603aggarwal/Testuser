@@ -27,6 +27,8 @@ repositories {
 
 dependencies {
     compile 'org.grails.plugins:rendering:2.0.3'
+    compile 'org.apache.poi:poi:3.9'
+    compile 'org.apache.poi:poi-ooxml:3.9'
     compile "com.github.jsimone:webapp-runner:8.5.5.0"
     compile 'org.grails.plugins:rendering:2.0.3'
     compile "org.grails.plugins:spring-security-core:3.2.1"
