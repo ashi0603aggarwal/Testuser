@@ -9,6 +9,8 @@ import Testuser.UserRole
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
+
 
 
 import static org.springframework.http.HttpStatus.*
@@ -94,20 +96,65 @@ class HotelDetailsController {
         User user = (User)springSecurityService.currentUser
         testuser.HotelRegistration hotelRegistration = testuser.HotelRegistration.findByEmail(user.username)
         hotelDetails1.hotelRegistration = hotelRegistration
-        print(hotelDetails1.phoneNo)
-        print(params.phoneNo)
-        print(params.logoFile)
         def logo = request.getFile("logoFile")
         hotelDetails1.logo = logo.getBytes()
-        def file = request.getFile("hotelRoomsFile")
-        log.error("HEYYYYYY"+file.size)
+         def file = request.getFile('hotelRoomsFile')
+        if(!file.empty) {
+            def sheetheader = []
+            def values = []
+            def workbook = new XSSFWorkbook(file.getInputStream())
+            def sheet = workbook.getSheetAt(0)
+            for (cell in sheet.getRow(0).cellIterator()) {
+                sheetheader << cell.stringCellValue
+            }
+            def headerFlag = true
+            for (row in sheet.rowIterator()) {
+                if (headerFlag) {
+                    headerFlag = false
+                    continue
+                }
+                def value = ''
+                def map = [:]
+                for (cell in row.cellIterator()) {
+                    switch(cell.cellType) {
+                        case 1:
+                            value = cell.stringCellValue
+                            map["${sheetheader[cell.columnIndex]}"] = value
+                            break
+                        case 0:
+                            value = cell.numericCellValue
+                            map["${sheetheader[cell.columnIndex]}"] = value
+                            break
+                        default:
+                            value = ''
+                    }
+                }
+                values.add(map)
+            }
+
+            values.each { data ->
+                if(data) {
+                    String j = data.roomNo
+                    if (j.indexOf('.')){
+                        j=j.substring(0,j.indexOf('.'))
+                    }
+                    HotelRooms hotelRooms = new HotelRooms()
+                    hotelRooms.roomNo=j
+                    hotelRooms.availability=data.availability
+                    hotelRooms.save(flush: true,failOnError : true)
+                    hotelDetails1.hotelRooms.add(hotelRooms)
+                    //Subscriber.findByEmail(v.email)?: new Subscriber(email:v.email,fullname:v.fullname).save flush:true, failOnError:true
+                }
+            }
+
+        }
+        
+        
+       /* def file = request.getFile("hotelRoomsFile")
         def paymentDatas = []
         if(file && !file.empty){
             def newFile = File.createTempFile('grails', 'hotelRoomsFile')
-            log.error("newFile-------->"+newFile.size())
             file.transferTo(newFile)
-            log.error("ABCDEFGHIJ"+newFile.size())
-            log.error("BLA BLA BLA BLA"+newFile)
             def importer = new HotelRoomsExcelImporter(newFile)
             paymentDatas = importer.list()
             paymentDatas.each{ data->
@@ -121,7 +168,7 @@ class HotelDetailsController {
                 hotelRooms.save(flush: true,failOnError : true)
                 hotelDetails1.hotelRooms.add(hotelRooms)
             }
-        }
+        } */
 
         if (hotelDetails1 == null) {
             notFound()
