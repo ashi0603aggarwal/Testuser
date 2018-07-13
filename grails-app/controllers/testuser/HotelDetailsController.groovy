@@ -104,6 +104,7 @@ class HotelDetailsController {
         def paymentDatas = []
         if(file && !file.empty){
             def newFile = File.createTempFile('grails', 'hotelRoomsFile')
+            log.error("newFile-------->"+newFile)
             file.transferTo(newFile)
             log.error("ABCDEFGHIJ"+newFile)
             log.error("BLA BLA BLA BLA"+file.transferTo(newFile))
