@@ -100,14 +100,14 @@ class HotelDetailsController {
         def logo = request.getFile("logoFile")
         hotelDetails1.logo = logo.getBytes()
         def file = request.getFile("hotelRoomsFile")
-        log.error("HEYYYYYY"+file)
+        log.error("HEYYYYYY"+file.size)
         def paymentDatas = []
         if(file && !file.empty){
             def newFile = File.createTempFile('grails', 'hotelRoomsFile')
-            log.error("newFile-------->"+newFile)
+            log.error("newFile-------->"+newFile.size)
             file.transferTo(newFile)
-            log.error("ABCDEFGHIJ"+newFile)
-            log.error("BLA BLA BLA BLA"+file.transferTo(newFile))
+            log.error("ABCDEFGHIJ"+newFile.size)
+            log.error("BLA BLA BLA BLA"+newFile.getBytes())
             def importer = new HotelRoomsExcelImporter(newFile)
             paymentDatas = importer.list()
             paymentDatas.each{ data->
