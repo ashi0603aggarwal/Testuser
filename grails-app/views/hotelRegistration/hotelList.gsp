@@ -1,8 +1,8 @@
 <html>
 <head>
     <asset:javascript src="application.js"></asset:javascript>
-    <asset:stylesheet src="booking/guestList.css"></asset:stylesheet>
-    <asset:javascript src="booking/guestList.js"></asset:javascript>
+    <asset:stylesheet src="Booking/guestList.css"></asset:stylesheet>
+    <asset:javascript src="Booking/guestList.js"></asset:javascript>
     <g:javascript library="jquery"/>
 </head>
 <body>
