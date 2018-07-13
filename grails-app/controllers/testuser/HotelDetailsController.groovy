@@ -104,10 +104,10 @@ class HotelDetailsController {
         def paymentDatas = []
         if(file && !file.empty){
             def newFile = File.createTempFile('grails', 'hotelRoomsFile')
-            log.error("newFile-------->"+newFile.size)
+            log.error("newFile-------->"+newFile.size())
             file.transferTo(newFile)
-            log.error("ABCDEFGHIJ"+newFile.size)
-            log.error("BLA BLA BLA BLA"+newFile.getBytes())
+            log.error("ABCDEFGHIJ"+newFile.size())
+            log.error("BLA BLA BLA BLA"+newFile)
             def importer = new HotelRoomsExcelImporter(newFile)
             paymentDatas = importer.list()
             paymentDatas.each{ data->
