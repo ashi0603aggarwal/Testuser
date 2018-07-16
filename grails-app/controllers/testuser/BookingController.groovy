@@ -148,6 +148,7 @@ class BookingController {
         String noOfPerson = params.noOfPerson
         booking1.noOfPerson = noOfPerson?.toInteger()
         String inDate = params.checkInDate
+        println(params.customerAddress)
         Date checkInDate = new Date().parse("dd/MMM/yyyy",inDate)
         booking1.checkInDate = checkInDate
         String inTime = params.checkInTime
@@ -158,24 +159,27 @@ class BookingController {
         {
             BillGeneration billGeneration = new BillGeneration()
             billGeneration.billNo = billGeneration.id
-            if(params.oyo != null)
+            if(params.oyo)
             {
                 String oyo = params.oyo
                 double oyoAdvance = oyo.toDouble()
                 billGeneration.oyoAdvance = oyoAdvance
             }
-            if(params.cash != null)
+            else{billGeneration.oyoAdvance = 0}
+            if(params.cash)
             {
                 String cash = params.cash
                 double cashAdvance = cash.toDouble()
                 billGeneration.cashAdvance = cashAdvance
             }
-            if(params.cash != null)
+            else{billGeneration.cashAdvance = 0}
+            if(params.paytm)
             {
                 String paytm = params.paytm
                 double paytmAdvance = paytm.toDouble()
                 billGeneration.paytmAdvance = paytmAdvance
             }
+            else{billGeneration.paytmAdvance = 0}
             billGeneration.save(flush: true,failOnError : true)
             booking1.billGeneration = billGeneration
         }

@@ -8,6 +8,8 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 
+import javax.servlet.ServletOutputStream
+
 import static org.springframework.http.HttpStatus.*
 
 @Secured('ROLE_USER')
@@ -77,7 +79,7 @@ class BillGenerationController {
         booking.bookingStatus = "Closed"
 
         booking.customerName = params.customerName
-        booking.customerAddress = params.customerName
+        booking.customerAddress = params.customerAddress
         booking.customerPhNo = params.customerPhNo
         booking.billGeneration.customerGst = params.customerGST
 
@@ -132,7 +134,9 @@ class BillGenerationController {
         def total= booking.billGeneration.total-booking.billGeneration.gstTotal
         def tRoom= booking.billGeneration.roomDetails.size().toInteger()
         testuser.HotelDetails hotelDetails = testuser.HotelDetails.findByHotelRegistration(hr)
-        render(view: 'createinvoice',model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
+        //render(view: 'createinvoice',model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
+        renderPdf(template: 'billPdf', model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
+
     }
 
     def viewBill()
@@ -148,19 +152,20 @@ class BillGenerationController {
         render(view: 'viewinvoice',model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
     }
 
-    def printBill()
-    {
+    def printBill() {
         String id = params.id
         Long bookingId = id.toLong()
+        //def bId = Booking.get( params.offerId )
         Booking booking = Booking.findById(bookingId)
-        User user = (User)springSecurityService.currentUser
-        testuser.HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
+        User user = (User) springSecurityService.currentUser
+        testuser.HotelRegistration hr = HotelRegistration.findByEmail(user.username)
         testuser.HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
-        def total= booking.billGeneration.total-booking.billGeneration.gstTotal
-        def tRoom= booking.billGeneration.roomDetails.size().toInteger()
+        def total = booking.billGeneration.total - booking.billGeneration.gstTotal
+        def tRoom = booking.billGeneration.roomDetails.size().toInteger()
         //def createPdfReport = { renderPdf(template: '/billGeneration/createinvoice', model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom], filename: "invoice") }
         //render(view: 'createinvoice',model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
-        renderPdf(template: '/billGeneration/createinvoice', model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom], filename: "invoice")
+        //renderPdf(template: "/billGeneration/printinvoice", model: [booking: booking, hr: hr, hotelDetails: hotelDetails, total: total, tRoom: tRoom], filename: "invoice.pdf")
+        renderPdf(template: 'billPdf', model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom,test:"test"])
     }
 
     def bill(){

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <asset:stylesheet src="booking/roomSelection.css"/>
+    <asset:stylesheet src="Booking/roomSelection.css"/>
     <title></title>
 </head>
 

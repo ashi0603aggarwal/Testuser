@@ -35,7 +35,7 @@
                     <td data-title="Generate Bill/Checkout">
                         <g:link controller="billGeneration" action="viewBill" id="${b.id}">View</g:link> &nbsp;
                         <g:link controller="billGeneration" action="editBill" id="${b.id}">Edit</g:link> &nbsp;
-                        <g:link controller="billGeneration" action="printBill" id="${b.id}">Print</g:link> &nbsp;
+                        <g:link controller="billGeneration" action="printBill" id="${b.id}">Print</g:link>
                     </td>
                 </g:else>
             </tr>

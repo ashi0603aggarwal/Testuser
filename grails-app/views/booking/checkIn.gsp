@@ -12,9 +12,9 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <asset:stylesheet src="booking/book.css"></asset:stylesheet>
-    <asset:javascript src="booking/book.js"></asset:javascript>
-    <asset:javascript src="Validate.js"></asset:javascript>
+    <asset:stylesheet src="Booking/book.css"></asset:stylesheet>
+    <asset:javascript src="Booking/book.js"></asset:javascript>
+    <asset:javascript src="Validate_Js.js"></asset:javascript>
 
     <title></title>
 </head>
@@ -129,7 +129,7 @@
 
                         <div class="wizard-footer">
                             <div class="pull-right">
-                                <g:actionSubmit class="btn btn-fill btn-danger btn-wd" value="Next"  action="roomSelection"/>
+                                <g:actionSubmit class="btn btn-fill btn-danger btn-wd" value="Next" action="roomSelection" />
                             </div>
                         </div>
 
@@ -155,7 +155,7 @@
                                                 <label for="paytm">PayTM</label>
                                                 <input type="text" class="form-control" name="paytm" id="paytm" placeholder="Enter amount">
                                             </div>
-                                            <button type="button" class="btn btn-success btn-block">Done</button>
+                                            <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Done</button>
                                         </form>
                                     </div>
                                 </div>
@@ -188,13 +188,18 @@
             ,
             change_customerEmail_alert: "email('customerEmail','Not a valid Email Id. Re-Enter!'),minLength('customerEmail',6,'Not Meeting Minimum Length criteria. Re-Enter!')"
             ,
-            change_customerPhNo_alert: "checkMobileNumber('customerPhNo','Invalid Mobile Number. Re-Enter!')"
+            change_customerPhNo_alert: "required( 'customerPhNo', 'Mandatory to Enter!' ),checkMobileNumber('customerPhNo','Invalid Mobile Number. Re-Enter!')"
             ,
             change_noOfPerson_alert: "numeric('noOfPerson','Invalid No Of Person!')"
             ,
-            change_customerAddress_alert: "notEmpty('customerAddress','Invalid address entered. Re-Enter!'),alphaNumericSymbols('customerAddress','Invalid address entered. Re-Enter!')"
+            change_customerAddress_alert: "required( 'customerAddress', 'Mandatory to Enter!' ),notEmpty('customerAddress','Invalid address entered. Re-Enter!'),alphaNumericSymbols('customerAddress','Invalid address entered. Re-Enter!')"
+            ,
+            change_checkInD_alert: "isFutureDate('checkInDate','Future Date Booking Not Possible!')"
         };
         init_validations(myVal);
     });
+    function validate() {
+        init_validations(myVal);
+    }
 </script>
 </html>

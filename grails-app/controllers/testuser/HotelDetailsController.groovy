@@ -148,8 +148,7 @@ class HotelDetailsController {
             }
 
         }
-        
-        
+
        /* def file = request.getFile("hotelRoomsFile")
         def paymentDatas = []
         if(file && !file.empty){

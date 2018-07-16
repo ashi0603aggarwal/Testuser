@@ -688,8 +688,13 @@ function isFutureDate( iDate )
 {
     var today = new Date().getTime(),
         iDate = iDate.split( "/" );
-
+    var arr = iDate.split("-");
+    var months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+    var month = months.indexOf(arr[1].toLowerCase());
+    var update_idate = arr[0]  + '/' + month + '/' + arr[2];
+    alert(iDate);
     idate = new Date( iDate[2], iDate[1] - 1, iDate[0] ).getTime();
+    alert(iDate)
     return ( today - iDate ) < 0 ? true : false;
 }
 
