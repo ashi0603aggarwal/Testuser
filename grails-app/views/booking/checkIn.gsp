@@ -107,19 +107,15 @@
                                     </div>
                                 </div>
 
-                                <div class='input-group date' id='checkInDate'>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+                                <div class='input-group date' id='checkInDate' >
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                     <label class="control-label">Check In Date</label>
                                     <input type='text' class="form-control" name="checkInDate"/>
                                 </div>
                                 <div class='input-group date' id='checkInTime'>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-time"></span>
-                                    </span>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
                                     <label class="control-label">Check In Time</label>
-                                    <input type='text' class="form-control" name="checkInTime"/>
+                                    <input type='text' class="form-control" name="checkInTime" />
                                 </div>
                                 <div class="input-group">
                                 <button type="button" class="btn btn-default btn-wd" id="myBtn" onclick="paymentFunction()">Payment</button>
@@ -176,7 +172,8 @@
     $( function() {
         $('#checkInDate').datetimepicker({
             format: 'DD/MMM/YYYY',
-            defaultDate: new Date()
+            defaultDate: new Date(),
+            maxDate: new Date()
         });
         $('#checkInTime').datetimepicker({
             format: 'LT',
@@ -193,13 +190,10 @@
             change_noOfPerson_alert: "numeric('noOfPerson','Invalid No Of Person!')"
             ,
             change_customerAddress_alert: "required( 'customerAddress', 'Mandatory to Enter!' ),notEmpty('customerAddress','Invalid address entered. Re-Enter!'),alphaNumericSymbols('customerAddress','Invalid address entered. Re-Enter!')"
-            ,
-            change_checkInD_alert: "isFutureDate('checkInDate','Future Date Booking Not Possible!')"
+
         };
         init_validations(myVal);
     });
-    function validate() {
-        init_validations(myVal);
-    }
+
 </script>
 </html>
