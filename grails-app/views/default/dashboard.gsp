@@ -30,7 +30,7 @@
                         <div class="col-xs-12 col-md-12">
                             <a href="/booking/checkIn" class="btn btn-info btn-lg" role="button"><span class="glyphicon glyphicon-pencil"></span> Create<br/>Booking</a>
                             <a href="/booking/guestList" class="btn btn-info btn-lg" role="button"><span class="glyphicon glyphicon-search"></span> View<br/>Bookings</a>
-                            <a href="/booking/roomSelection" class="btn btn-info btn-lg" role="button"> Available<br>Rooms </a>
+                            <a href="/booking/roomAvailable" class="btn btn-info btn-lg" role="button"> Available<br>Rooms </a>
                             <a href="/booking/detailList" class="btn btn-info btn-lg" role="button"> Payment<br>Details</a>
                         </div>
                         <div class="col-xs-12 col-md-12">
