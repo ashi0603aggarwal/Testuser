@@ -17,6 +17,7 @@
     <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
 </head>
 <body class="bg-view">
+<h3 align="right"><a href="/default/dash" class="btn btn-lg" role="button">Dashboard</a></h3>
     <header>
         <g:if test="${booking?.billGeneration?.total>999}">
             <h2 id="billHeading">Invoice</h2>
@@ -146,7 +147,7 @@
                 </tr>
                 <tr>
                     <th><span>Advance Payment Oyo</span></th>
-                    <td><span>${booking.billGeneration.oyoAdvance}/></span></td>
+                    <td><span>${booking.billGeneration.oyoAdvance}</span></td>
                     <th><span>Cash At Hotel</span></th>
                     <td><span>${booking.billGeneration.cashAdvance}</span></td>
                     <th><span>Advance PayTM</span></th>

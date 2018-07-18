@@ -19,6 +19,7 @@
     <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
 </head>
 <body class="bg">
+<h3 align="right"><a href="/default/dash" class="btn btn-lg" role="button">Dashboard</a></h3>
 <header>
     <g:if test="${booking?.billGeneration?.total>999}">
         <h2 id="billHeading">Invoice</h2>

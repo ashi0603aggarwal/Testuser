@@ -18,6 +18,7 @@
     <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
 </head>
 <body class="bg">
+<h3 align="right"><a href="/default/dash" class="btn btn-lg" role="button">Dashboard</a></h3>
 <header>
     <h2 id="billHeading">Invoice</h2>
     <address>
