@@ -14,6 +14,8 @@
 
 <body>
 <div >
+    <h3 align="right"><a href="/default/dash" class="btn btn-lg btn-info" role="button">Back</a></h3>
+
     <div class="cockpit">
         <h1>Room availability </h1>
     </div>

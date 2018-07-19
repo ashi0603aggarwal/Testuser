@@ -16,6 +16,7 @@
         </tr>
         </thead>
         <tbody>
+
         <g:each in="${booking1}" var="b" >
             <tr>
                 <td data-title="test.Booking Id">${b.id}</td>
@@ -40,6 +41,12 @@
                 </g:else>
             </tr>
         </g:each>
+
         </tbody>
     </table>
+</div>
+
+
+<div class="paginateButtons">
+    <util:remotePaginate total="${bookingcount}" update="hotelbookings" action="pagin"  max="2"  params="${params}"/>
 </div>

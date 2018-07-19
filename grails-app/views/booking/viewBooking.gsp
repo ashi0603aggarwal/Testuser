@@ -20,6 +20,7 @@
 <body>
 
 <div class="container">
+    <h3 align="right"><a href="/default/dash" class="btn btn-lg btn-info" role="button">Dashboard</a></h3>
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
             <!-- Wizard container -->
@@ -106,15 +107,13 @@
                                     </div>
                                 </div>
                                 <div class='input-group date' id='checkInDate'>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    <label class="control-label">Check In Date</label>
                                     <input type='text' class="form-control" name="checkInDate" value="${checkInDate}"/>
                                 </div>
                                 <div class='input-group date' id='checkInTime'>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-time"></span>
-                                    </span>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+                                    <label class="control-label">Check In Time</label>
                                     <input type='text' class="form-control" name="checkInTime" value="${checkInTime}"/>
                                 </div>
                                 <div class="form-group label-floating">
@@ -132,7 +131,6 @@
                                 <g:actionSubmit class="btn btn-next btn-fill btn-danger btn-wd" value="Save Changes"  action="roomSelectionEdit"/>
                             </div>
                         </div>
-
 
                         <div class="modal fade" id="myModal" role="dialog">
                             <div class="modal-dialog">
@@ -156,7 +154,7 @@
                                                 <label for="paytm">PayTM</label>
                                                 <input type="text" class="form-control" name="paytm" id="paytm" value="${booking.billGeneration.paytmAdvance}">
                                             </div>
-                                            <button type="button" class="btn btn-success btn-block">Done</button>
+                                            <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Done</button>
                                         </form>
                                     </div>
                                 </div>

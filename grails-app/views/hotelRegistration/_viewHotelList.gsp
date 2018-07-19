@@ -16,11 +16,11 @@
         <tbody>
         <g:each in="${hotels}" var="h" >
             <tr>
-                <td data-title="Booking Id">${h.id}</td>
+                <td data-title="S.No.">${h.id}</td>
                 <td data-title="Hotel Name">${h.hotelName}</td>
                 <td data-title="User Name">${h.email}</td>
                 <td data-title="Gstin">${h.gstin}</td>
-                <td data-title="Generate Bill/Checkout">
+                <td data-title="View/Update">
                     <g:link action="updateHotel" id="${h.id}">View/Update</g:link>
                 </td>
 

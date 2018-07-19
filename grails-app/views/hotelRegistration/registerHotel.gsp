@@ -21,10 +21,12 @@
 <body>
 
 <div class="container">
+    <h3 align="right"><a href="/default/dash" class="btn btn-lg btn-info" role="button">Back</a></h3>
     <g:hasErrors bean="${this.hotelRegistration}">
         <ul class="errors" role="alert">
             <g:eachError bean="${this.hotelRegistration}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>>
+                    <g:message error="${error}"/></li>
             </g:eachError>
         </ul>
     </g:hasErrors>
@@ -33,9 +35,8 @@
             <!-- Wizard container -->
             <div class="wizard-container">
                 <div class="card wizard-card" data-color="red" id="wizard">
-                    <g:form action="submitHotelRegister">
+                    <g:form action="submitHotelRegister" onsubmit="return validate()">
                         <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
-
                         <div class="wizard-header">
                             <h3 class="wizard-title">
                                 Register New Hotel
@@ -74,7 +75,7 @@
                                     </span>
                                     <div class="form-group label-floating">
                                         <label class="control-label">Password</label>
-                                        <input name="password" title="password" type="text" id="password" class="form-control">
+                                        <input name="password" title="password" type="password" id="password" class="form-control">
                                     </div>
                                 </div>
                                 <div class="input-group">
@@ -130,13 +131,47 @@
 </div>
 </body>
 <script type="application/javascript">
+    function validate(){
+        var flag=0;
+
+        var name= document.getElementsByName(hotelName);
+        if (/^\s+$/.test( name ) || name == null)
+        {   flag=1; alert("Complete name");}
+        var user= document.getElementsByName(email);
+        if (/^\s+$/.test( user ) || user == null)
+        {   flag=1; alert("Complete user!");}
+        var pass= document.getElementsByName(password);
+        if ( /^\s+$/.test( pass ) || pass == null)
+        {   flag=1; alert("Complete pass!");}
+        var address= document.getElementsByName(address);
+        if ( /^\s+$/.test( address ) || address == null)
+        {   flag=1; alert("Complete add!");}
+        var gstin= document.getElementsByName(gstin);
+        if ( /^\s+$/.test( gstin ) || gstin == null)
+        {   flag=1; alert("Complete gstin!");}
+        var hoteLic= document.getElementsByName(hotelLicenceNo);
+        if ( /^\s+$/.test( hoteLic ) || hoteLic == null)
+        {   flag=1; alert("Complete hotelLic!");}
+        var foodLic= document.getElementsByName(foodLicenceNo);
+        if ( /^\s+$/.test( foodLic ) || foodLic == null)
+        {   flag=1; alert("Complete all the food!");}
+
+        if(flag==1) {
+            alert("Complete all the fields!");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
     $( function() {
         var myVal = {
             change_hotelName_alert: "required('hotelName','Mandatory to Enter!'),alphanumeric('hotelName','Invalid Hotel Name!')"
             ,
             change_gstin_alert: "required('gstin','Mandatory to Enter!'),alphanumeric('gstin','Invalid GSTIN Number!')"
             ,
-            change_email_alert: "required('email','Mandatory to Enter!'),email('email','Invalid Number!')"
+            change_email_alert: "required('email','Mandatory to Enter!'),email('email','Invalid Username!')"
             ,
             change_password_alert: "required('password','Mandatory to Enter!'),checkPassword('password','Invalid Password!')"
             ,

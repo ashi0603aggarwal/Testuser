@@ -19,6 +19,7 @@
 <body>
 
 <div class="container">
+    <h3 align="right"><a href="/default/dash" class="btn btn-lg btn-info" role="button">Back</a></h3>
     <g:hasErrors bean="${this.hotelRegistration}">
         <ul class="errors" role="alert">
             <g:eachError bean="${this.hotelRegistration}" var="error">

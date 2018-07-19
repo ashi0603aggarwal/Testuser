@@ -156,8 +156,7 @@ function submitCheck()
 	{
 		countLocal++;
 		checkSubmit.push( element[key] );
-	}	
-
+	}
 	if( count == countLocal )
 	{	
 		for( var key2 in element )
@@ -181,11 +180,9 @@ function submitCheck()
 	else
 	{		alert( "Complete All Fields" );
 			return false;
-	}	
+	}
+
 }
-
-
-
 
 
 function required(id, message, display )

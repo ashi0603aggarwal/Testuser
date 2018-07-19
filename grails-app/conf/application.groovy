@@ -6,6 +6,8 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'Testuser.UserR
 grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/default/dash'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
+grails.plugins.remotepagination.max=20
+grails.plugins.remotepagination.enableBootstrap=true
 grails.plugin.springsecurity.authority.className = 'Testuser.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/',               access: ['permitAll']],

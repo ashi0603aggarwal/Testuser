@@ -117,6 +117,14 @@ class BookingController {
         int r = (hotelRoomsList?.size()) / 10
         render(view: 'roomSelection', model: [hotelRoomsList: hotelRoomsList, r: r, p: params])
     }
+    def roomAvailable() {
+        User user = (User) springSecurityService.currentUser
+        HotelRegistration hr = HotelRegistration.findByEmail(user.username)
+        HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
+        List<HotelRooms> hotelRoomsList = hotelDetails.hotelRooms.findAll()
+        int r = (hotelRoomsList?.size()) / 10
+        render(view: 'roomAvailable', model: [hotelRoomsList: hotelRoomsList, r: r])
+    }
 
     def roomSelectionEdit()
     {
@@ -277,8 +285,12 @@ class BookingController {
         User user = (User)springSecurityService.currentUser
         HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
         HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
-        List<Booking> booking1 = hotelDetails.bookings.findAll()
-        render(view: 'guestList', model: [booking1:booking1])
+        //List<Booking> booking1 = hotelDetails.bookings.findAll()
+        def bookingcount = (hotelDetails.bookings.findAll()).size()
+        println(bookingcount)
+        params.max=20
+        List<Booking> booking1 = Booking.findAllByHotelDetails((hotelDetails), params)
+        render(view: 'guestList', model: [booking1:booking1,bookingcount:bookingcount,params:params])
     }
     def detailList(){
         User user = (User)springSecurityService.currentUser
@@ -286,6 +298,48 @@ class BookingController {
         HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
         List<Booking> booking1 = hotelDetails.bookings.findAll()
         render(view: 'detailList', model: [booking1:booking1])
+    }
+    def pagin(){
+        String name = params.name
+        String n = "%" + name + "%"
+        String phNo = params.customerPhNo
+        String ph = "%" +phNo + "%"
+        String status = params.status
+        String invoiceDate = params.invoiceDate
+        User user = (User)springSecurityService.currentUser
+        HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
+        HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
+        List<Booking> booking1 = []
+        def bookingcount
+        if (invoiceDate){
+            Date invDate = new Date().parse("dd/MMM/yyyy",invoiceDate)
+            if (status){
+                booking1 =  Booking.findAllByBillGenerationInListAndHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(BillGeneration.findAllByInvoiceDate(invDate),hotelDetails,n,ph,status,params)
+                bookingcount= (Booking.findAllByBillGenerationInListAndHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(BillGeneration.findAllByInvoiceDate(invDate),hotelDetails,n,ph,status)).size()
+            }else {
+                booking1 =  Booking.findAllByBillGenerationInListAndHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlike(BillGeneration.findAllByInvoiceDate(invDate),hotelDetails,n,ph,params)
+                bookingcount= (Booking.findAllByBillGenerationInListAndHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlike(BillGeneration.findAllByInvoiceDate(invDate),hotelDetails,n,ph)).size()
+            }
+        }
+        else{
+            if (status){
+                booking1 = Booking.findAllByHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(hotelDetails,n,ph,status,params)
+                bookingcount=(Booking.findAllByHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(hotelDetails,n,ph,status)).size()
+            }
+            else if (name || phNo){
+                booking1 = Booking.findAllByHotelDetails(hotelDetails,n,ph,params)
+                bookingcount= (Booking.findAllByHotelDetails(hotelDetails,n,ph)).size()
+            }
+            else{
+                booking1 = Booking.findAllByHotelDetails(hotelDetails,params)
+                bookingcount= (Booking.findAllByHotelDetails(hotelDetails)).size()
+            }
+        }
+        println(bookingcount)
+        println(booking1.size())
+        println(params.max)
+        render(template:"bookingList", model:[booking1:booking1,bookingcount:bookingcount])
+
     }
     def filterBookings(){
         String name = params.name
@@ -298,26 +352,46 @@ class BookingController {
         HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
         HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
         List<Booking> booking1 = []
+        def bookingcount
+        params.max=20
         if (invoiceDate){
             Date invDate = new Date().parse("dd/MMM/yyyy",invoiceDate)
             if (status){
-                booking1 =  Booking.findAllByBillGenerationInListAndHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(BillGeneration.findAllByInvoiceDate(invDate),hotelDetails,n,ph,status)
+                println("in status & invoice")
+                booking1 =  Booking.findAllByBillGenerationInListAndHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(BillGeneration.findAllByInvoiceDate(invDate),hotelDetails,n,ph,status,params)
+                bookingcount= (Booking.findAllByBillGenerationInListAndHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(BillGeneration.findAllByInvoiceDate(invDate),hotelDetails,n,ph,status)).size()
             }else {
-                booking1 =  Booking.findAllByBillGenerationInListAndHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlike(BillGeneration.findAllByInvoiceDate(invDate),hotelDetails,n,ph)
-            }
-        }else{
-            if (status){
-                booking1 = Booking.findAllByHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(hotelDetails,n,ph,status)
-            }else {
-                booking1 = Booking.findAllByHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlike(hotelDetails,n,ph)
+                println("in invoice")
+                booking1 =  Booking.findAllByBillGenerationInListAndHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlike(BillGeneration.findAllByInvoiceDate(invDate),hotelDetails,n,ph,params)
+                bookingcount= (Booking.findAllByBillGenerationInListAndHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlike(BillGeneration.findAllByInvoiceDate(invDate),hotelDetails,n,ph)).size()
             }
         }
-        String htmlContent = g.render([template:"bookingList", model:[booking1:booking1]])
+        else{
+            if (status){
+                println("in status")
+                booking1 = Booking.findAllByHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(hotelDetails,n,ph,status,params)
+                bookingcount=(Booking.findAllByHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(hotelDetails,n,ph,status)).size()
+            }
+            else if (name || phNo){
+                println("in ph no and name")
+                booking1 = Booking.findAllByHotelDetailsAndCustomerNameLikeAndCustomerPhNoLike(hotelDetails,n,ph,params)
+                bookingcount= (Booking.findAllByHotelDetails(hotelDetails,n,ph)).size()
+            }
+                else{
+                println("none")
+                booking1 = Booking.findAllByHotelDetails(hotelDetails,params)
+                bookingcount= (Booking.findAllByHotelDetails(hotelDetails)).size()
+            }
+        }
+        println(bookingcount)
+        println(booking1.size())
+        println(params.max)
+        String htmlContent = g.render([template:"bookingList", model:[booking1:booking1,bookingcount:bookingcount]])
         Map responseData = [htmlContent:htmlContent]
         render(responseData as JSON)
+
     }
     def filterBooking(){
-
         String maxDateRange = params.maxDateRange
         Date endDate = new Date().parse("dd/MMM/yyyy",maxDateRange)
         String minDateRange = params.minDateRange

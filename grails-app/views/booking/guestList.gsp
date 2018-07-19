@@ -18,7 +18,7 @@
     <g:render template="searchBooking" />
 
     <div id="hotelbookings">
-        <g:render template="bookingList" model="['booking1':booking1]" />
+        <g:render template="bookingList" model="['booking1':booking1,bookingcount:bookingcount]" />
     </div>
 </div>
 
@@ -34,6 +34,7 @@
             success: function(data) {
                 $("#hotelbookings").html(data.htmlContent);
             }
+
         });
     }
 
