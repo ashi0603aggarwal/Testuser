@@ -18,7 +18,7 @@
     <g:render template="searchPayment" />
 
     <div id="hotelbookings">
-        <g:render template="reportList" model="['booking1':booking1]" />
+        <g:render template="reportList" model="['booking1':booking1,bookingcount:bookingcount]" />
     </div>
 </div>
 

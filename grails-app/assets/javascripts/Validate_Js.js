@@ -202,6 +202,21 @@ function required(id, message, display )
 
 }
 
+//Function to check and validate 15 digit length of the input field
+function gstinLength( id, message, display )
+{
+    elementId = document.getElementById( id );
+    elementVal = elementId.value;
+    if( elementVal.length == 15 )
+    {
+        return true;
+    }
+    else
+    {
+        displayMessage( message, id, display );
+        return false;
+    }
+}
 
 
 //Function to check and validate maximum length of the input field

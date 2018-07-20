@@ -74,3 +74,7 @@
         </tbody>
     </table>
 </div>
+
+<div class="paginateButtons">
+    <util:remotePaginate total="${bookingcount}" update="hotelbookings" action="paginate"  max="2"  params="${params}"/>
+</div>

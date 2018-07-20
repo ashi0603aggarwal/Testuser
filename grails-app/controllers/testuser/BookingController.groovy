@@ -296,8 +296,12 @@ class BookingController {
         User user = (User)springSecurityService.currentUser
         HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
         HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
-        List<Booking> booking1 = hotelDetails.bookings.findAll()
-        render(view: 'detailList', model: [booking1:booking1])
+        //List<Booking> booking1 = hotelDetails.bookings.findAll()
+        def bookingcount = (hotelDetails.bookings.findAll()).size()
+        println(bookingcount)
+        params.max=20
+        List<Booking> booking1 = Booking.findAllByHotelDetails((hotelDetails), params)
+        render(view: 'detailList', model: [booking1:booking1,bookingcount:bookingcount,params:params])
     }
     def pagin(){
         String name = params.name
@@ -391,24 +395,70 @@ class BookingController {
         render(responseData as JSON)
 
     }
-    def filterBooking(){
+    def paginate(){
         String maxDateRange = params.maxDateRange
-        Date endDate = new Date().parse("dd/MMM/yyyy",maxDateRange)
         String minDateRange = params.minDateRange
-        Date startDate = new Date().parse("dd/MMM/yyyy",minDateRange)
         User user = (User)springSecurityService.currentUser
         HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
         HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
         List<Booking> booking1 = []
-        List<Booking> bookings = []
+        def bookingcount
+        if(maxDateRange && minDateRange )
+        {
+            Date endDate = new Date().parse("dd/MMM/yyyy",maxDateRange)
+            Date startDate = new Date().parse("dd/MMM/yyyy",minDateRange)
+            booking1 = Booking.findAllByBillGenerationInListAndHotelDetails(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate,endDate),hotelDetails,params)
+            bookingcount= (Booking.findAllByBillGenerationInListAndHotelDetails(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate,endDate),hotelDetails)).size()
+        }
+        else {
+            booking1 = Booking.findAllByHotelDetails(hotelDetails,params)
+            bookingcount=  (Booking.findAllByHotelDetails(hotelDetails)).size()
+        }
+        /*List<Booking> bookings = []
+         bookings = Booking.findAllByHotelDetails(hotelDetails)
+         bookings.each { b ->
+             if(b.checkInDate>=startDate && b.checkInDate<=endDate)
+             {
+                 booking1.add(b)
+             }
+         }*/
+
+        println(bookingcount)
+        println(booking1.size())
+        println(params.max)
+        render(template:"reportList", model:[booking1:booking1,bookingcount:bookingcount])
+    }
+
+    def filterBooking(){
+        String maxDateRange = params.maxDateRange
+        String minDateRange = params.minDateRange
+        User user = (User)springSecurityService.currentUser
+        HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
+        HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
+        List<Booking> booking1 = []
+        def bookingcount
+        params.max=20
+        if(maxDateRange && minDateRange )
+        {
+            Date endDate = new Date().parse("dd/MMM/yyyy",maxDateRange)
+            Date startDate = new Date().parse("dd/MMM/yyyy",minDateRange)
+            booking1 = Booking.findAllByBillGenerationInListAndHotelDetails(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate,endDate),hotelDetails,params)
+            bookingcount= (Booking.findAllByBillGenerationInListAndHotelDetails(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate,endDate),hotelDetails)).size()
+        }
+        else {
+            booking1 = Booking.findAllByHotelDetails(hotelDetails,params)
+            bookingcount=  (Booking.findAllByHotelDetails(hotelDetails)).size()
+        }
+        /*List<Booking> bookings = []
         bookings = Booking.findAllByHotelDetails(hotelDetails)
         bookings.each { b ->
             if(b.checkInDate>=startDate && b.checkInDate<=endDate)
             {
                 booking1.add(b)
             }
-        }
-        String htmlContent = g.render([template:"reportList", model:[booking1:booking1]])
+        }*/
+        bookingcount= booking1.size()
+        String htmlContent = g.render([template:"reportList", model:[booking1:booking1,bookingcount: bookingcount]])
         Map responseData = [htmlContent:htmlContent]
         render(responseData as JSON)
     }

@@ -48,5 +48,5 @@
 
 
 <div class="paginateButtons">
-    <util:remotePaginate total="${bookingcount}" update="hotelbookings" action="pagin"  max="2"  params="${params}"/>
+    <util:remotePaginate total="${bookingcount}" update="hotelbookings" action="pagin"  max="20"  params="${params}"/>
 </div>

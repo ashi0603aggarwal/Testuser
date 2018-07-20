@@ -136,25 +136,25 @@
 
         var name= document.getElementsByName(hotelName);
         if (/^\s+$/.test( name ) || name == null)
-        {   flag=1; alert("Complete name");}
+        {   flag=1; }
         var user= document.getElementsByName(email);
         if (/^\s+$/.test( user ) || user == null)
-        {   flag=1; alert("Complete user!");}
+        {   flag=1; }
         var pass= document.getElementsByName(password);
         if ( /^\s+$/.test( pass ) || pass == null)
-        {   flag=1; alert("Complete pass!");}
+        {   flag=1; }
         var address= document.getElementsByName(address);
         if ( /^\s+$/.test( address ) || address == null)
-        {   flag=1; alert("Complete add!");}
+        {   flag=1; }
         var gstin= document.getElementsByName(gstin);
         if ( /^\s+$/.test( gstin ) || gstin == null)
-        {   flag=1; alert("Complete gstin!");}
+        {   flag=1; }
         var hoteLic= document.getElementsByName(hotelLicenceNo);
         if ( /^\s+$/.test( hoteLic ) || hoteLic == null)
-        {   flag=1; alert("Complete hotelLic!");}
+        {   flag=1; }
         var foodLic= document.getElementsByName(foodLicenceNo);
         if ( /^\s+$/.test( foodLic ) || foodLic == null)
-        {   flag=1; alert("Complete all the food!");}
+        {   flag=1; }
 
         if(flag==1) {
             alert("Complete all the fields!");
@@ -169,7 +169,7 @@
         var myVal = {
             change_hotelName_alert: "required('hotelName','Mandatory to Enter!'),alphanumeric('hotelName','Invalid Hotel Name!')"
             ,
-            change_gstin_alert: "required('gstin','Mandatory to Enter!'),alphanumeric('gstin','Invalid GSTIN Number!')"
+            change_gstin_alert: "required('gstin','Mandatory to Enter!'),alphanumeric('gstin','Invalid GSTIN Number!'),gstinLength('gstin','GSTIN must be 15 digit number!')"
             ,
             change_email_alert: "required('email','Mandatory to Enter!'),email('email','Invalid Username!')"
             ,
