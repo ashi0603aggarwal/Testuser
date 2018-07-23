@@ -35,7 +35,7 @@
             <!-- Wizard container -->
             <div class="wizard-container">
                 <div class="card wizard-card" data-color="red" id="wizard">
-                    <g:form action="submitHotelRegister" onsubmit="return validate()">
+                    <g:form action="submitHotelRegister"  onsubmit="return validate()">
                         <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
                         <div class="wizard-header">
                             <h3 class="wizard-title">
@@ -133,7 +133,6 @@
 <script type="application/javascript">
     function validate(){
         var flag=0;
-
         var name= document.getElementsByName(hotelName);
         if (/^\s+$/.test( name ) || name == null)
         {   flag=1; }
@@ -163,7 +162,6 @@
         else {
             return true;
         }
-
     }
     $( function() {
         var myVal = {
@@ -171,9 +169,9 @@
             ,
             change_gstin_alert: "required('gstin','Mandatory to Enter!'),alphanumeric('gstin','Invalid GSTIN Number!'),gstinLength('gstin','GSTIN must be 15 digit number!')"
             ,
-            change_email_alert: "required('email','Mandatory to Enter!'),email('email','Invalid Username!')"
+            change_email_alert: "required('email','Mandatory to Enter!'),email('email','Invalid email!')"
             ,
-            change_password_alert: "required('password','Mandatory to Enter!'),checkPassword('password','Invalid Password!')"
+            change_password_alert: "required('password','Mandatory to Enter!'),checkPassword('password','Password should contain atleast 1 capital, 1 lowercase alphabet, 1 special character and 1 number!')"
             ,
             change_address_alert: "alphaNumericSymbols('address','Invalid Address. Re-Enter!')"
         };

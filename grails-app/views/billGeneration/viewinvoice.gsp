@@ -20,7 +20,7 @@
 <h3 align="right"><a href="/default/dash" class="btn btn-lg" role="button">Dashboard</a></h3>
     <header>
         <g:if test="${booking?.billGeneration?.total>999}">
-            <h2 id="billHeading">Invoice</h2>
+            <h2 id="billHeading"> Tax Invoice</h2>
         </g:if>
         <g:else>
             <h2 id="billHeading">Bill Of Supply</h2>
@@ -28,7 +28,7 @@
         <address>
             <p style="font-weight: bold; font-size: 18px" >${hr.hotelName}</p>
             <p>Address: ${hr.address}</p>
-            <p>Ph No: 9890989000</p>
+            <p>Ph No: ${hotelDetails.phoneNo}</p>
             <p>GST No: ${hr.gstin}</p>
             <p>License No: ${hr.hotelLicenceNo}</p>
             <p>Food License No: ${hr.foodLicenceNo}</p>

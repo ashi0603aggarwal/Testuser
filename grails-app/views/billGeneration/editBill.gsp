@@ -22,7 +22,7 @@
 <h3 align="right"><a href="/default/dash" class="btn btn-lg" role="button">Dashboard</a></h3>
 <header>
     <g:if test="${booking?.billGeneration?.total>999}">
-        <h2 id="billHeading">Invoice</h2>
+        <h2 id="billHeading">Tax Invoice</h2>
     </g:if>
     <g:else>
         <h2 id="billHeading">Bill Of Supply</h2>
@@ -57,7 +57,7 @@
                         <th><span>Check In Date</span></th>
                         <td>
                             <div class='input-group date' id='checkInDate'>
-                                <input type='text'  class="form-control" name="checkInDate" value="${checkInDate}"/>
+                                <input type='text'  class="form-control"  id="checkIn" name="checkInDate" value="${checkInDate}"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -86,7 +86,7 @@
                         <th><span>Check Out Date</span></th>
                         <td>
                             <div class='input-group date' id='checkOutDate'>
-                                <input type='text' class="form-control" name="checkOutDate" value="${checkOutDate}"/>
+                                <input type='text' class="form-control" id="checkOut" name="checkOutDate" value="${checkOutDate}"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -117,17 +117,14 @@
                     <tr>
                         <th><span>Phone No</span></th>
                         <td><span ><input name="customerPhNo" type="text" title="customerPhNo" id="customerPhNo" value="${booking.customerPhNo}"></span></td>
-
                     </tr>
                     <tr>
                         <th><span>GST</span></th>
                         <td><span ><input type="text" name="customerGST" title="customerGST" id="customerGST" ></span></td>
-
                     </tr>
                     <tr>
                         <th><span>Other</span></th>
                         <td><span ><input type="text" name="customerOther" title="customerOther" id="customerOther" ></span></td>
-
                     </tr>
                 </table>
             </div>
@@ -173,7 +170,6 @@
     </table>
     <aside>
         Amount in Words Rupees <input id="amountInWords" name="amountInWords" title="amountInWords" value="${booking.billGeneration.amtInWords}" style="width: 250px"/>
-
     </aside>
     <input type="hidden" value="${booking.billGeneration.id}" name="billId" >
     </article>
@@ -182,7 +178,6 @@
 </body>
 <script type="application/javascript">
     $( function() {
-
         $('#invoiceDate').datetimepicker({
             format: 'DD/MMM/YYYY'
         });

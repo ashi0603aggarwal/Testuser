@@ -15,7 +15,7 @@
     <td><a class="cut">-</a><span><g:textField name="roomNo" title="roomNo" value="${roomNo}"/></span></td>
     <td><span><g:textField name="roomRate" title="roomRate"  onChange="updateInvoice()" /></span></td>
     <td><span><g:textField name="noOfPerson" /></span></td>
-    <td><span><g:textField name="noOfDays" title="noOfDays" onChange="updateInvoice()" value="${noOfDays}"/></span></td>
+    <td><span><g:textField name="noOfDays" title="noOfDays" value="${noOfDays}"/></span></td>
     <td><span><g:textField name="tax" title="tax"/></span></td>
     <td><span><g:textField name="taxRate" title="taxRate"/></span></td>
     <td><span><g:textField name="total" title="total"/></span></td>

@@ -20,7 +20,7 @@
 <div class="sub-bill">
     <header>
         <g:if test="${booking?.billGeneration?.total>999}">
-            <h2 id="billHeading">Invoice</h2>
+            <h2 id="billHeading">Tax Invoice</h2>
         </g:if>
         <g:else>
             <h2 id="billHeading">Bill Of Supply</h2>
@@ -28,7 +28,7 @@
         <address>
             <p style="font-weight: bold; font-size: 18px" >${hr.hotelName}</p>
             <p>Address: ${hr.address}</p>
-            <p>Ph No: 9890989000</p>
+            <p>Ph No: ${hotelDetails.phoneNo}</p>
             <p>GST No: ${hr.gstin}</p>
             <p>License No: ${hr.hotelLicenceNo}</p>
             <p>Food License No: ${hr.foodLicenceNo}</p>
@@ -120,10 +120,12 @@
             </tbody>
             <table class="" style="padding-top: 0; padding-left: 0">
                 <tr>
-                    <th colspan="2"><span>Total Rooms</span></th>
+                    <th colspan="1"><span>Total Rooms</span></th>
                     <td colspan="1"><span>${tRoom}</span></td>
+                    <th colspan="1"><span>Total Days</span></th>
+                    <td colspan="1"><span>${noOfDays}</span></td>
                     <th colspan="2"><span>Other Extra Charges</span></th>
-                    <td colspan="2"><span></span>RS. <span>${booking.billGeneration.otherCharges}</span></td>
+                    <td colspan="1"><span></span>RS. <span>${booking.billGeneration.otherCharges}</span></td>
                 </tr>
                 <tr>
                     <th colspan="2"><span>Amount in Words</span></th>
@@ -169,7 +171,7 @@
 <div class="sub-bill">
     <header>
         <g:if test="${booking?.billGeneration?.total>999}">
-            <h2 id="billHeading">Invoice</h2>
+            <h2 id="billHeading">Tax Invoice</h2>
         </g:if>
         <g:else>
             <h2 id="billHeading">Bill Of Supply</h2>
@@ -177,7 +179,7 @@
         <address>
             <p style="font-weight: bold; font-size: 18px" >${hr.hotelName}</p>
             <p>Address: ${hr.address}</p>
-            <p>Ph No: 9890989000</p>
+            <p>Ph No:  ${hotelDetails.phoneNo}</p>
             <p>GST No: ${hr.gstin}</p>
             <p>License No: ${hr.hotelLicenceNo}</p>
             <p>Food License No: ${hr.foodLicenceNo}</p>

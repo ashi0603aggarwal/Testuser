@@ -89,22 +89,14 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="material-icons">block</i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Blocked By</label>
-                                        <input name="blockedBy" title="blockedBy" type="text" id="blockedBy" class="form-control">
-                                    </div>
-                                </div>
+
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="material-icons">book</i>
                                     </span>
                                     <div class="form-group label-floating">
                                         <label class="control-label">Booked By</label>
-                                        <input name="bookedBy" title="bookedBy" type="text" id="bookedBy" class="form-control">
+                                        <g:select name="bookedBy" id="bookedBy" from="['Self','Oyo','GoIbibo']" class="form-control"/>
                                     </div>
                                 </div>
 
@@ -118,8 +110,9 @@
                                     <label class="control-label">Check In Time</label>
                                     <input type='text' class="form-control" name="checkInTime" />
                                 </div>
+                                <br>
                                 <div class="input-group">
-                                <button type="button" class="btn btn-default btn-wd" id="myBtn" onclick="paymentFunction()">Payment</button>
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;<button type="button" class="btn btn-default btn-wd" id="myBtn" onclick="paymentFunction()">Payment</button>
                                 </div>
                             </div>
                         </div>

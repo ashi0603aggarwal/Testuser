@@ -217,7 +217,7 @@ class BookingController {
         booking1.customerEmail = params.customerEmail
         booking1.customerPhNo = params.customerPhNo
         booking1.bookedBy = params.bookedBy
-        booking1.blockedBy = params.blockedBy
+        //booking1.blockedBy = params.blockedBy
         String noOfPerson = params.noOfPerson
         booking1.noOfPerson = noOfPerson?.toInteger()
         String inDate = params.checkInDate

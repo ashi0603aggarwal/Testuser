@@ -32,7 +32,7 @@
             <!-- Wizard container -->
             <div class="wizard-container">
                 <div class="card wizard-card" data-color="red" id="wizard">
-                    <g:form action="updateHotelRegister">
+                    <g:form action="updateHotelRegister" onsubmit="return validate()">
                         <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
 
                         <div class="wizard-header">
@@ -129,6 +129,40 @@
 </div>
 </body>
 <script type="application/javascript">
+    function validate(){
+        var flag=0;
+
+        var name= document.getElementsByName(hotelName);
+        if (/^\s+$/.test( name ) || name == null)
+        {   flag=1; }
+        var user= document.getElementsByName(email);
+        if (/^\s+$/.test( user ) || user == null)
+        {   flag=1; }
+        var pass= document.getElementsByName(password);
+        if ( /^\s+$/.test( pass ) || pass == null)
+        {   flag=1; }
+        var address= document.getElementsByName(address);
+        if ( /^\s+$/.test( address ) || address == null)
+        {   flag=1; }
+        var gstin= document.getElementsByName(gstin);
+        if ( /^\s+$/.test( gstin ) || gstin == null)
+        {   flag=1; }
+        var hoteLic= document.getElementsByName(hotelLicenceNo);
+        if ( /^\s+$/.test( hoteLic ) || hoteLic == null)
+        {   flag=1; }
+        var foodLic= document.getElementsByName(foodLicenceNo);
+        if ( /^\s+$/.test( foodLic ) || foodLic == null)
+        {   flag=1; }
+
+        if(flag==1) {
+            alert("Complete all the fields!");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
     $( function() {
         var myVal = {
             change_hotelName_alert: "required('hotelName','Mandatory to Enter!'),alphanumeric('hotelName','Invalid Hotel Name!')"

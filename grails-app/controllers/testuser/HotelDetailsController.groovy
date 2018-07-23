@@ -9,10 +9,9 @@ import Testuser.UserRole
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+import org.apache.poi.xssf.usermodel.XSSFCell
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-
-
-
+import com.jameskleeh.excel.ExcelBuilder
 import static org.springframework.http.HttpStatus.*
 
 @Secured('ROLE_USER')
@@ -89,6 +88,27 @@ class HotelDetailsController {
     def createHotelDetails(){
         render(view:'createHotelDetails')
     }
+
+    def templateDownload()
+    {
+        File file = new File('test.xlsx')
+        ExcelBuilder.output(new FileOutputStream(file)) {
+            sheet {
+                row('Room No', 'Availability')
+                row("101", "Yes")
+                row("102", "No")
+                row("103", "Yes")
+                row("107", "Yes")
+                row("105", "No")
+                row("106", "Yes")
+                row("107", "Yes")
+                row("108", "Yes")
+                row("109", "Yes")
+                row("110", "No")
+            }
+        }
+    }
+
 
     def submitHotelDetail()
     {
@@ -189,7 +209,6 @@ class HotelDetailsController {
         User user = (User)springSecurityService.currentUser
         testuser.HotelRegistration hotelRegistration = testuser.HotelRegistration.findByEmail(user.username)
         testuser.HotelDetails hotelDetails = testuser.HotelDetails.findByHotelRegistration(hotelRegistration)
-        println(hotelDetails.phoneNo)
         render(view:'updateHotelDetails',model: [hotelDetails:hotelDetails])
     }
 
@@ -201,10 +220,62 @@ class HotelDetailsController {
         hotelDetails.billSeries = params.billSeries
         hotelDetails.phoneNo = params.phoneNo
         def logo = request.getFile("logoFile")
-        hotelDetails.logo = logo.getBytes()
+        if(logo && !logo.empty) {
+            hotelDetails.logo = logo.getBytes()
+        }
         def file = request.getFile("hotelRoomsFile")
-        def paymentDatas = []
-        if(file && !file.empty){
+
+        if(!file.empty) {
+            def sheetheader = []
+            def values = []
+            def workbook = new XSSFWorkbook(file.getInputStream())
+            def sheet = workbook.getSheetAt(0)
+            for (cell in sheet.getRow(0).cellIterator()) {
+                sheetheader << cell.stringCellValue
+            }
+            def headerFlag = true
+            for (row in sheet.rowIterator()) {
+                if (headerFlag) {
+                    headerFlag = false
+                    continue
+                }
+                def value = ''
+                def map = [:]
+                for (cell in row.cellIterator()) {
+                    switch(cell.cellType) {
+                        case 1:
+                            value = cell.stringCellValue
+                            map["${sheetheader[cell.columnIndex]}"] = value
+                            break
+                        case 0:
+                            value = cell.numericCellValue
+                            map["${sheetheader[cell.columnIndex]}"] = value
+                            break
+                        default:
+                            value = ''
+                    }
+                }
+                values.add(map)
+            }
+
+            values.each { data ->
+                if(data) {
+                    String j = data.roomNo
+                    if (j.indexOf('.')){
+                        j=j.substring(0,j.indexOf('.'))
+                    }
+                    HotelRooms hotelRooms = new HotelRooms()
+                    hotelRooms.roomNo=j
+                    hotelRooms.availability=data.availability
+                    hotelRooms.save(flush: true,failOnError : true)
+                    hotelDetails.hotelRooms.add(hotelRooms)
+                    //Subscriber.findByEmail(v.email)?: new Subscriber(email:v.email,fullname:v.fullname).save flush:true, failOnError:true
+                }
+            }
+
+        }
+        /*if(file && !file.empty){
+            def paymentDatas = []
             def newFile = File.createTempFile('grails', 'hotelRoomsFile')
             log.error("ABCDEFGHIJ"+newFile)
             file.transferTo(newFile)
@@ -225,7 +296,7 @@ class HotelDetailsController {
                 hotelRooms.save(flush: true,failOnError : true)
                 hotelDetails.hotelRooms.add(hotelRooms)
             }
-        }
+        }*/
 
         try {
             hotelDetails.save(flush:true,failOnError:true)

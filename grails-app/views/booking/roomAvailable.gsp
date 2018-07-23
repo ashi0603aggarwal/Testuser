@@ -11,7 +11,11 @@
     <asset:stylesheet src="Booking/roomSelection.css"/>
     <title></title>
 </head>
-
+<style>
+table { font-size:65%; width: 10%; border-collapse: separate; border-spacing: 1px;}
+th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
+th, td { border-radius: 0.20em; border-style: solid; }
+</style>
 <body>
 <div >
     <h3 align="right"><a href="/default/dash" class="btn btn-lg btn-info" role="button">Back</a></h3>
@@ -42,7 +46,25 @@
 
     </ol>
 </div>
-
+<br><br>
+<table border="1">
+    <tr>
+        <th>Room Status</th>
+        <td>Color</td>
+    </tr>
+    <tr>
+    <th>Room Not Available</th>
+    <td bgcolor="#d3d3d3"></td>
+    </tr>
+    <tr>
+        <th>Room Available</th>
+        <td bgcolor="red"></td>
+    </tr>
+    <tr>
+        <th>Room Selected</th>
+        <td bgcolor="#adff2f"></td>
+    </tr>
+</table>
 
 </body>
 </html>

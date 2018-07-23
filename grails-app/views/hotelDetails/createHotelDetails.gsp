@@ -26,7 +26,7 @@
             <!-- Wizard container -->
             <div class="wizard-container">
                 <div class="card wizard-card" data-color="red" id="wizard">
-                    <g:form action="submitHotelDetail" method="post" enctype="multipart/form-data">
+                    <g:form action="submitHotelDetail" method="post" enctype="multipart/form-data" onsubmit="return validate()">
                         <!-- You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
                         <div class="wizard-header">
                             <h3 class="wizard-title">
@@ -64,7 +64,7 @@
                                 <div class="input-group">
                                     <div class="form-group label-floating">
                                         <label class="control-label">Hotel Logo</label>
-                                        <input type="file" name="logoFile" id="logoFile" />
+                                        <input type="file" name="logoFile" id="logoFile"/>
                                         <button type="submit" >Upload Logo</button>
                                     </div>
                                 </div>
@@ -72,11 +72,11 @@
                                 <div class="input-group">
                                     <div class="form-group label-floating">
                                         <label class="control-label">Hotel Rooms</label>
-                                        <input type="file" name="hotelRoomsFile" id="hotelRoomsFile" value="Choose File"/>
+                                        <input type="file" name="hotelRoomsFile" id="hotelRoomsFile"/>
                                         <button type="submit" >Upload Excel</button>
                                     </div>
                                 </div>
-
+                                <g:link controller="hotelDetails" action="templateDownload">Download Sample Sheet</g:link>
                             </div>
                         </div>
                         <div class="wizard-footer">
@@ -92,15 +92,34 @@
 </div>
 </body>
 <script type="application/javascript">
+    function validate()
+    {
+        var flag=0;
+        var name= document.getElementsByName(billSeries);
+        if (/^\s+$/.test( name ) || name == null)
+        {   flag=1; }
+        var phno= document.getElementsByName(phoneNo);
+        if (/^\s+$/.test( phno ) || phno == null)
+        {   flag=1; }
+        var logofile= document.getElementById("logoFile").files.length;
+        if (logofile== 0)
+        {   flag=1; alert("Logo File Not Uploaded"); }
+
+        var hotelRoomsFile= document.getElementById("hotelRoomsFile").files.length;
+        if (hotelRoomsFile== 0)
+        {   flag=1; alert("Room Details File Not Uploaded");}
+
+        if(flag==1) {
+            alert("Complete all the fields!");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     $( function() {
         var myVal = {
-            change_hotelLicenceNo_alert: "required('hotelLicenceNo','Mandatory to Enter!'),numeric('hotelLicenceNo','Invalid Hotel License No!')"
-            ,
-            change_foodLicenceNo_alert: "required('foodLicenceNo','Mandatory to Enter!'),numeric('foodLicenceNo','Invalid Food License No!')"
-            ,
-            change_totalNoOfRooms_alert: "numeric('totalNoOfRooms','Invalid Number!')"
-            ,
-            change_billSeries_alert: "numeric('billSeries','Invalid Bill Series!')"
+
                 };
         init_validations(myVal);
     });

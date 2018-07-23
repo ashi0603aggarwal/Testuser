@@ -34,10 +34,8 @@
             success: function(data) {
                 $("#hotelbookings").html(data.htmlContent);
             }
-
         });
     }
-
     $( function() {
         $('#invDate').datetimepicker({
             format: 'DD/MMM/YYYY',

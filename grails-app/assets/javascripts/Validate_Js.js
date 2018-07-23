@@ -449,8 +449,7 @@ function dateDDMMYYYY( id, message, display )
 	var userMonth1 = parseInt( p1[1] );
 	var userDay1 = parseInt( p1[0] );
 	var userYear1 = parseInt( p1[2] );
-	
-	
+
 	var p11 = elementVal.split( '-' );
 	var userMonth11 = parseInt( p11[1] );
 	var userDay11 = parseInt( p11[0] );
@@ -460,7 +459,6 @@ function dateDDMMYYYY( id, message, display )
 	var userMonth111 = parseInt( p111[1] );
 	var userDay111 = parseInt( p111[0] );
 	var userYear111 = parseInt( p111[2] );
-	
 
 	var today = new Date();
 	var currentMonth = parseInt( today.getMonth() );
@@ -719,7 +717,6 @@ function dateOfBirth( id, message, display )
 	var dateReg = /(0[1-9]|[12][0-9]|3[01])[\/.-](0[1-9]|1[012])[\/.-](\d{4})$/; 
 	if( dateReg.test( elementVal ) )
 	{
-		
 		if( !( isFutureDate( elementVal ) ) )
 		{
 			return true;
@@ -729,7 +726,6 @@ function dateOfBirth( id, message, display )
 	    	displayMessage( message, id, display );	
 	        return false;
 	    }
-		
   } 
 	else
 	{

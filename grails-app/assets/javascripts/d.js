@@ -83,6 +83,32 @@ function parseFloatHTML(element) {
     return parseFloat(element.innerHTML.replace(/[^\d\.\-]+/g, '')) || 0;
 }
 
+function updateDays()
+{
+    var checkout = document.getElementById('checkOut').value;
+    var checkin =  document.getElementById('checkIn').value;
+    var date1 = GetDate(checkout);
+    var date2 = GetDate(checkin);
+    var diffDays = Math.floor(( Date.parse(date1) - Date.parse(date2) ) / 86400000);
+   //alert(diffDays);
+    return diffDays;
+}
+function GetDate(str)
+{
+
+    var arr = str.split('/');
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    var i = 1;
+    for (i; i <= months.length; i++) {
+        if (months[i] == arr[1])
+        {
+            break;
+        }
+    }
+    var formatddate = i  + '/' + arr[0] + '/' + arr[2];
+    return formatddate;
+
+}
 
 /* Update Invoice
  /* ========================================================================== */
@@ -95,6 +121,7 @@ function updateInvoice() {
     var noroom = 0;
     var cells, price, sprice, nodays, total, a, i;
 
+    nodays = updateDays();
     // update inventory cells
     // ======================
     for (var a = document.querySelectorAll('table.inventory tbody tr'), i = 0; a[i]; ++i) {
@@ -102,7 +129,7 @@ function updateInvoice() {
         cells = a[i].querySelectorAll('span:last-child');
         noroom=1;
         sprice=cells[1].getElementsByTagName("input")[0].value;
-        nodays=cells[3].getElementsByTagName("input")[0].value;
+        //cells[3].getElementsByTagName("input")[0].value= nodays;
         price = (noroom)*(sprice);
 
         //alert(price)
@@ -136,6 +163,7 @@ function updateInvoice() {
         }
 
         cells[5].innerHTML = '<input type="text" name="taxRate" value="'+taxRate+'%'+'">';
+        cells[3].innerHTML = '<input type="text" name="noOfDays" value="'+nodays+'">';
 
         tax=tax.toFixed(3);
         cells[4].innerHTML = '<input type="text" name="tax" value="'+tax+'">';
@@ -262,7 +290,6 @@ function updateInvoice() {
     var advance = document.getElementById("advPaymentAmt").value;
     var balance = finalTotal- Number(advance) ;
     document.getElementById("balPaymentAmt").value = balance;
-
     if(finalTotal<=999) {
         document.getElementById("billHeading").innerHTML = "Bill Of Supply";
     }

@@ -26,8 +26,6 @@
         padding: 0;
         text-decoration: none;
         text-transform: uppercase;
-        
-       
     }
 
     /* content editable */
@@ -38,7 +36,7 @@
     span[contenteditable] { display: inline-block; }
 
     /* heading */
-    h2 { font: bold 100% sans-serif; letter-spacing: 0.5em; text-align: center; text-transform: uppercase; }
+    h2 { font: bold 100% sans-serif; letter-spacing:1em; text-align: center; text-transform: uppercase; }
     /* table */
 
     table { font-size: 30%; table-layout: inherit; width: 100%; }
@@ -57,8 +55,8 @@
     body { box-sizing: border-box; height: 11in; margin: 0 auto; overflow: hidden; padding: 0.5in; width: 8.5in; }
     body { background: #FFF; border-radius: 1px; box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); }
 
-    header h2 { background: #000; border-radius: 0.25em; color: #FFF; margin: 0 0 0.2em; padding: 0em 0; font-size: 1.5em}
-    address { text-transform: uppercase; float: left; font-size: 100%; font-style: normal; line-height: 1;  margin: 0em 20em 0em 0em; font-family: Arial}
+    header h2 { background: #000; border-radius: 0.25em; color: #FFF; margin: 0 0 0.2em; padding: 0em 0; font-size: 2em}
+    address {  text-transform: uppercase; float: left; font-size: 100%; font-style: normal; line-height: 1;  margin: 0em 20em 0em 0em; font-family: Arial}
     header address p { margin: 0 0 0.25em; font-size: 11.5px }
     header span { display: block; float: right; }
     header img { display: block; float: left; }
@@ -94,7 +92,6 @@
     article h1 { clip: rect(0 0 0 0); position: absolute; }
 
     article address { float: left; font-size: 125%; font-weight: bold; }
-
 
     /* table meta  balance */
 
@@ -150,22 +147,22 @@
 <div class="sub-bill1">
     <header>
         <g:if test="${booking?.billGeneration?.total>999}">
-            <h2 id="billHeading">Invoice</h2>
+            <h2 id="billHeading">Tax Invoice</h2>
         </g:if>
         <g:else>
             <h2 id="billHeading">Bill Of Supply</h2>
         </g:else>
         <address>
-            <p style="font-weight: bold; font-size: 18px; padding-top: inherit" >${hr.hotelName}</p>
+            <p style="font-weight: bold; font-size: 30px; padding-top: inherit" >${hr.hotelName}</p>
             <p>Address: ${hr.address}</p>
-            <p>Ph No: 9890989000</p>
+            <p>Ph No: ${hotelDetails.phoneNo}</p>
             <p>GST No: ${hr.gstin}</p>
             <p>License No: ${hr.hotelLicenceNo}</p>
             <p>Food License No: ${hr.foodLicenceNo}</p>
         </address>
     </header>
     <article>
-       &nbsp; &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         <span><img alt="logo" src="data:image/png;base64,${hotelDetails.logo.encodeBase64()}"  width="20%" height="6%"/></span>
                 <div style="padding-right: 0;">
                     <table>
@@ -232,10 +229,12 @@
             </table>
                 <table class="" style="padding-top: 0; padding-left: 0">
                     <tr>
-                        <th colspan="2" style="width: 22%"><span>Total Rooms</span></th>
-                        <td colspan="2" style="width: 12%"><span>${tRoom}</span></td>
-                        <th colspan="2" style="width: 29%"><span>Other Extra Charges</span></th>
-                        <td colspan="2" style="width: 40%"><span></span>RS. <span>${booking.billGeneration.otherCharges}</span></td>
+                        <th colspan="1" style="width: 10%"><span>Total Rooms</span></th>
+                        <td colspan="1" style="width: 12%"><span>${tRoom}</span></td>
+                        <th colspan="1" style="width: 12%"><span>Total Days</span></th>
+                        <td colspan="1" style="width: 19%"><span>${booking.billGeneration.roomDetails.noOfDays[0]}</span></td>
+                        <th colspan="2" style="width: 28%"><span>Other Extra Charges</span></th>
+                        <td colspan="1" style="width: 24%"><span></span>RS. <span>${booking.billGeneration.otherCharges}</span></td>
                     </tr>
                     <tr>
                         <th colspan="2"><span>Amount in Words</span></th>
@@ -263,16 +262,18 @@
                     <td><span >Rs </span><span>${booking.billGeneration.total}</span></td>
                 </tr>
             </table>
-            <aside><br></br>
-                <p style="font-size: smaller">Terms and Conditions<br></br>
+            <aside>
+                <p style="font-size: 9px">Terms and Conditions</p> <p style="font-size: smaller">
                     1. A finance charge of 1.5% will be made on unpaid balances after 30 days.<br> </br>
                     2. A finance charge of 1.5% will be made on unpaid balances after 30 days.<br> </br>
                     3. A finance charge of 1.5% will be made on unpaid balances after 30 days.<br> </br>
                     4. A finance charge of 1.5% will be made on unpaid balances after 30 days.<br> </br>
                     5. A finance charge of 1.5% will be made on unpaid balances after 30 days.
                 </p>
-            </aside><br></br><br></br><br></br>
-            <p style="float: right">Authorised Signatory</p>
+            </aside>
+            <p style="float: right">FOR ${hr.hotelName}
+                <br></br><br></br><br></br><br></br>
+                Authorised Signatory</p>
         </div>
     </article>
 </div>
@@ -280,14 +281,14 @@
     <br></br> <br></br>
     ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     <header>
-        <g:if test="${booking?.billGeneration?.total>999}">
-            <h2 id="billHeading">Invoice</h2>
-        </g:if>
-        <g:else>
-            <h2 id="billHeading">Bill Of Supply</h2>
-        </g:else>
+    <g:if test="${booking?.billGeneration?.total>999}">
+        <h2 id="billHeading">Tax Invoice</h2>
+    </g:if>
+    <g:else>
+        <h2 id="billHeading">Bill Of Supply</h2>
+    </g:else>
         <address>
-            <p style="font-weight: bold; font-size: 18px; padding-top: inherit" >${hr.hotelName}</p>
+            <p style="font-weight: bold; font-size: 30px; padding-top: inherit" >${hr.hotelName}</p>
             <p>Address: ${hr.address}</p>
             <p>Ph No: 9890989000</p>
             <p>GST No: ${hr.gstin}</p>
@@ -296,7 +297,7 @@
         </address>
     </header>
     <article>
-        &nbsp; &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         <span><img alt="logo" src="data:image/png;base64,${hotelDetails.logo.encodeBase64()}"  width="20%" height="6%"/></span>
         <div style="padding-right: 0;">
             <table>
@@ -363,10 +364,12 @@
         </table>
         <table class="" style="padding-top: 0; padding-left: 0">
             <tr>
-                <th colspan="2" style="width: 22%"><span>Total Rooms</span></th>
-                <td colspan="2" style="width: 12%"><span>${tRoom}</span></td>
-                <th colspan="2" style="width: 29%"><span>Other Extra Charges</span></th>
-                <td colspan="2" style="width: 40%"><span></span>RS. <span>${booking.billGeneration.otherCharges}</span></td>
+                <th colspan="1" style="width: 10%"><span>Total Rooms</span></th>
+                <td colspan="1" style="width: 12%"><span>${tRoom}</span></td>
+                <th colspan="1" style="width: 12%"><span>Total Days</span></th>
+                <td colspan="1" style="width: 19%"><span>${booking.billGeneration.roomDetails.noOfDays[0]}</span></td>
+                <th colspan="2" style="width: 28%"><span>Other Extra Charges</span></th>
+                <td colspan="1" style="width: 24%"><span></span>RS. <span>${booking.billGeneration.otherCharges}</span></td>
             </tr>
             <tr>
                 <th colspan="2"><span>Amount in Words</span></th>
@@ -394,16 +397,18 @@
                     <td><span >Rs </span><span>${booking.billGeneration.total}</span></td>
                 </tr>
             </table>
-            <aside><br></br>
-                <p style="font-size: smaller">Terms and Conditions<br></br>
+            <aside>
+                <p style="font-size: 9px">Terms and Conditions</p> <p style="font-size: smaller">
                     1. A finance charge of 1.5% will be made on unpaid balances after 30 days.<br> </br>
                     2. A finance charge of 1.5% will be made on unpaid balances after 30 days.<br> </br>
                     3. A finance charge of 1.5% will be made on unpaid balances after 30 days.<br> </br>
                     4. A finance charge of 1.5% will be made on unpaid balances after 30 days.<br> </br>
                     5. A finance charge of 1.5% will be made on unpaid balances after 30 days.
                 </p>
-            </aside><br></br><br></br><br></br>
-            <p style="float: right">Authorised Signatory</p>
+            </aside>
+            <p style="float: right">FOR ${hr.hotelName}
+                <br></br><br></br><br></br><br></br>
+                Authorised Signatory</p>
         </div>
     </article>
 

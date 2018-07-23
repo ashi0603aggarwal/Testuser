@@ -20,7 +20,12 @@
 <body class="bg">
 <h3 align="right"><a href="/default/dash" class="btn btn-lg" role="button">Dashboard</a></h3>
 <header>
-    <h2 id="billHeading">Invoice</h2>
+    <g:if test="${booking?.billGeneration?.total>999}">
+        <h2 id="billHeading">Tax Invoice</h2>
+    </g:if>
+    <g:else>
+        <h2 id="billHeading">Bill Of Supply</h2>
+    </g:else>
     <address>
         <p>${hr.hotelName}, Address: ${hr.address}, Ph No: </p>
         <p>GST No: ${hr.gstin}
@@ -49,7 +54,7 @@
             <th><span>Check In Date</span></th>
             <td>
                 <div class='input-group date' id='checkInDate'>
-                    <input type='text'  class="form-control" name="checkInDate" value="${checkInDate}"/>
+                    <input type='text'  class="form-control" id="checkIn" name="checkInDate" value="${checkInDate}"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -58,7 +63,7 @@
             <th><span>Check In Time</span></th>
             <td>
                 <div class='input-group date' id='checkInTime'>
-                    <input type='text'  class="form-control" name="checkInTime" value="${checkInTime}"/>
+                    <input type='text' class="form-control" name="checkInTime" value="${checkInTime}"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -78,7 +83,7 @@
             <th><span>Check Out Date</span></th>
             <td>
                 <div class='input-group date' id='checkOutDate'>
-                    <input type='text' class="form-control" name="checkOutDate"/>
+                    <input type='text' class="form-control" id="checkOut" name="checkOutDate"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -161,9 +166,9 @@
             <td><span><input type="text" name="balPaymentAmt" id="balPaymentAmt" title="balPaymentAmt"  value="${booking.billGeneration.balPaymentAmt}"/></span></td>
         </tr>
     </table>
-    <aside>
-        Amount in Words Rupees <input id="amountInWords" name="amountInWords" style="width:250px"/> Only.<br><br>
-    </aside>
+    <p>
+        Amount in Words Rupees <input id="amountInWords" name="amountInWords" style="width:250px"/> Only.
+    </p><br><br>
     <input type="hidden" value="${booking.billGeneration.id}" name="billId" >
     </article>
     <g:actionSubmit class="btn btn-fill btn-wd" value="Submit" action="createInvoice"/>

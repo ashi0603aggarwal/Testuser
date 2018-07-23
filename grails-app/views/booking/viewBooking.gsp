@@ -88,15 +88,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="material-icons">block</i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Blocked By</label>
-                                        <input name="blockedBy" title="blockedBy" type="text" id="blockedBy" class="form-control" value="${booking.blockedBy}">
-                                    </div>
-                                </div>
+
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="material-icons">book</i>
@@ -116,12 +108,12 @@
                                     <label class="control-label">Check In Time</label>
                                     <input type='text' class="form-control" name="checkInTime" value="${checkInTime}"/>
                                 </div>
+                                <div class="input-group">
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;<button type="button" class="btn btn-default btn-wd" id="myBtn" onclick="paymentFunction()">Payment</button>
+                                </div>
                                 <div class="form-group label-floating">
                                     <label class="control-label">Room No</label>
                                     <input name="roomsBooked" title="roomsBooked"  id="roomsBooked" class="form-control" value="${booking.roomsBooked}">
-                                </div>
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-default btn-wd" id="myBtn" onclick="paymentFunction()">Payment</button>
                                 </div>
                                 <g:hiddenField name="bookingId" value="${booking.id}"/>
                             </div>
@@ -131,6 +123,7 @@
                                 <g:actionSubmit class="btn btn-next btn-fill btn-danger btn-wd" value="Save Changes"  action="roomSelectionEdit"/>
                             </div>
                         </div>
+
 
                         <div class="modal fade" id="myModal" role="dialog">
                             <div class="modal-dialog">
@@ -152,7 +145,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="paytm">PayTM</label>
-                                                <input type="text" class="form-control" name="paytm" id="paytm" value="${booking.billGeneration.paytmAdvance}">
+                                                <input type="text" class="form-control" name="paytm" id="paytm" placeholder=value="${booking.billGeneration.paytmAdvance}">
                                             </div>
                                             <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Done</button>
                                         </form>
