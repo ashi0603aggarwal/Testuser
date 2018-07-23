@@ -9,9 +9,16 @@ import Testuser.UserRole
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.ss.usermodel.Cell
+import org.apache.poi.ss.usermodel.Row
+import org.apache.poi.ss.usermodel.Sheet
+import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFCell
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import com.jameskleeh.excel.ExcelBuilder
+import pl.touk.excel.export.WebXlsxExporter
+
 import static org.springframework.http.HttpStatus.*
 
 @Secured('ROLE_USER')
@@ -91,24 +98,19 @@ class HotelDetailsController {
 
     def templateDownload()
     {
-        File file = new File('test.xlsx')
-        ExcelBuilder.output(new FileOutputStream(file)) {
-            sheet {
-                row('Room No', 'Availability')
-                row("101", "Yes")
-                row("102", "No")
-                row("103", "Yes")
-                row("107", "Yes")
-                row("105", "No")
-                row("106", "Yes")
-                row("107", "Yes")
-                row("108", "Yes")
-                row("109", "Yes")
-                row("110", "No")
-            }
+        def headers = ['Room No', 'Availability']
+        new WebXlsxExporter().with {
+            setResponseHeaders(response)
+            fillHeader(headers)
+            fillRow(["101", "No"],1)
+            fillRow(["102", "Yes"],2)
+            fillRow(["103", "No"],3)
+            fillRow(["104", "No"],4)
+            fillRow(["105", "Yes"],5)
+            fillRow(["106", "Yes"],6)
+            save(response.outputStream)
         }
     }
-
 
     def submitHotelDetail()
     {

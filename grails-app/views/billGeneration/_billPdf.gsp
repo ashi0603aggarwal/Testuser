@@ -11,7 +11,6 @@
    %{-- <g:render template="css"></g:render>--}%
     <style type="text/css">
     /* reset */
-
     * {
         border: 0;
         box-sizing: content-box;
@@ -27,9 +26,7 @@
         text-decoration: none;
         text-transform: uppercase;
     }
-
     /* content editable */
-
     *[contenteditable] { border-radius: 0.25em; min-width: 1em; outline: 0; }
     *[contenteditable] { cursor: pointer; }
     *[contenteditable]:hover, *[contenteditable]:focus, td:hover *[contenteditable], td:focus *[contenteditable], img.hover { background: #DEF; box-shadow: 0 0 1em 0.5em #DEF; }
@@ -45,7 +42,7 @@
     th, td { border-radius: 0.25em; border-style: solid; }
     th { background: #EEE; border-color: #BBB; }
     td { border-color: #DDD; }
-    tr th span { font-weight: bold; !important;}
+    tr th span { font-weight: bold; font-size: 9px; !important;}
 
     /* page */
 
@@ -147,22 +144,22 @@
 <div class="sub-bill1">
     <header>
         <g:if test="${booking?.billGeneration?.total>999}">
-            <h2 id="billHeading">Tax Invoice</h2>
+        <h2 id="billHeading">Tax Invoice</h2>
         </g:if>
         <g:else>
             <h2 id="billHeading">Bill Of Supply</h2>
         </g:else>
         <address>
-            <p style="font-weight: bold; font-size: 30px; padding-top: inherit" >${hr.hotelName}</p>
+           <p> <a href="http://localhost:8080/default/dash" style="font-weight: bold; font-size: 30px; padding-top: inherit">${hr.hotelName}</a></p>
             <p>Address: ${hr.address}</p>
-            <p>Ph No: ${hotelDetails.phoneNo}</p>
+            <p>Phone No: ${hotelDetails.phoneNo}</p>
             <p>GST No: ${hr.gstin}</p>
             <p>License No: ${hr.hotelLicenceNo}</p>
             <p>Food License No: ${hr.foodLicenceNo}</p>
         </address>
     </header>
     <article>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         <span><img alt="logo" src="data:image/png;base64,${hotelDetails.logo.encodeBase64()}"  width="20%" height="6%"/></span>
                 <div style="padding-right: 0;">
                     <table>
@@ -229,7 +226,7 @@
             </table>
                 <table class="" style="padding-top: 0; padding-left: 0">
                     <tr>
-                        <th colspan="1" style="width: 10%"><span>Total Rooms</span></th>
+                        <th colspan="1" style="width: 10%"><span>Rooms</span></th>
                         <td colspan="1" style="width: 12%"><span>${tRoom}</span></td>
                         <th colspan="1" style="width: 12%"><span>Total Days</span></th>
                         <td colspan="1" style="width: 19%"><span>${booking.billGeneration.roomDetails.noOfDays[0]}</span></td>
@@ -290,14 +287,14 @@
         <address>
             <p style="font-weight: bold; font-size: 30px; padding-top: inherit" >${hr.hotelName}</p>
             <p>Address: ${hr.address}</p>
-            <p>Ph No: 9890989000</p>
+            <p>Phone No: 9890989000</p>
             <p>GST No: ${hr.gstin}</p>
             <p>License No: ${hr.hotelLicenceNo}</p>
             <p>Food License No: ${hr.foodLicenceNo}</p>
         </address>
     </header>
     <article>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         <span><img alt="logo" src="data:image/png;base64,${hotelDetails.logo.encodeBase64()}"  width="20%" height="6%"/></span>
         <div style="padding-right: 0;">
             <table>
@@ -364,7 +361,7 @@
         </table>
         <table class="" style="padding-top: 0; padding-left: 0">
             <tr>
-                <th colspan="1" style="width: 10%"><span>Total Rooms</span></th>
+                <th colspan="1" style="width: 10%"><span>Rooms</span></th>
                 <td colspan="1" style="width: 12%"><span>${tRoom}</span></td>
                 <th colspan="1" style="width: 12%"><span>Total Days</span></th>
                 <td colspan="1" style="width: 19%"><span>${booking.billGeneration.roomDetails.noOfDays[0]}</span></td>
