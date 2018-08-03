@@ -37,7 +37,7 @@
     /* table */
 
     table { font-size: 30%; table-layout: inherit; width: 100%; }
-    table {border-collapse: separate;  border-spacing: 1px;}
+    table { border-collapse: separate; border-spacing: 1px; }
     th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
     th, td { border-radius: 0.25em; border-style: solid; }
     th { background: #EEE; border-color: #BBB; }
@@ -64,25 +64,11 @@
     .bg-print{
         height: 100%;
         background-color: #FFFFFF;
-        width: 90%;
+        width: 92%;
         line-height: 1em;
-        padding-top: 5px;
-      }
+        padding-top: 8px;
 
-    .sub-bill1{
-        position: fixed;
-        padding-top:1%;
-        height: 50%;
-        width: 88%;
-        left: 6%
-    }
-    .sub-bill2{
-        position: fixed;
-        padding-top: 62%;
-        height: 50%;
-        width: 88%;
-        left:6%
-    }
+      }
 
     article, article address, table.meta, table.inventory { margin: 0 0 0.5em; }
     article h1 { clip: rect(0 0 0 0); position: absolute; }
@@ -128,12 +114,14 @@
         .add, .cut { display: none; }
     }
 
-    @page { margin: 0; }
+    @page {
+        size:  210mm 148mm;
+        margin: 0 0 0 0 ;
+    }
     </style>
 
 </head>
 <body class="bg-print">
-<div class="sub-bill1">
     <header>
         <g:if test="${booking?.billGeneration?.total>999}">
             <g:if test="${booking?.billGeneration?.gstTotal>0}">
@@ -158,7 +146,7 @@
         &nbsp; &nbsp; &nbsp; &nbsp;
         <span><img alt="logo" src="data:image/png;base64,${hotelDetails.logo.encodeBase64()}"/></span>
         <div style="padding-right: 0; ">
-            <table >
+            <table>
                 <tr>
                     <th width="15%"><span>Guest Name</span></th>
                     <td width="85%" colspan="5"><span>${booking.customerName}</span></td>
@@ -233,7 +221,7 @@
                         <td colspan="6"><span>Rupees ${booking.billGeneration.amtInWords} Only</span></td>
                     </tr>
                 </table>
-        <div style="position:fixed; left:6%; bottom: 532px; width: 100%;">
+        <div style="position:fixed; left:6%; bottom: 5% ; width: 92%;">
             <table class="balance" style="padding-top: 0px">
                 <tr>
                     <th><span>SGST</span></th>
@@ -268,144 +256,6 @@
                 Authorised Signatory</p>
         </div>
     </article>
-</div><br></br><br></br>
-<div class="sub-bill2">
-    ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    <br></br>
-    <header>
-        <g:if test="${booking?.billGeneration?.total>999}">
-            <g:if test="${booking?.billGeneration?.gstTotal>0}">
-                <h2 id="billHeading">Tax Invoice</h2>
-            </g:if>
-            <g:else>
-                <h2 id="billHeading">Bill Of Supply</h2>
-            </g:else>
-        </g:if>
-        <g:else>
-            <h2 id="billHeading">Bill Of Supply</h2>
-        </g:else>
-        <address>
-            <p style="font-weight: bold; font-size: 30px; padding-top: inherit" >${hr.hotelName}</p>
-            <p>Address: ${hr.address}</p>
-            <p>Phone No: 9890989000</p>
-            <p>GST No: ${hr.gstin}</p>
-            <p>License No: ${hr.hotelLicenceNo}, Food License No: ${hr.foodLicenceNo}</p>
-        </address>
-    </header>
-    <article>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <span><img alt="logo" src="data:image/png;base64,${hotelDetails.logo.encodeBase64()}"/></span>
-        <div  style="padding-right: 0;">
-            <table>
-                <tr>
-                    <th width="15%"><span>Guest Name</span></th>
-                    <td width="85%" colspan="5"><span>${booking.customerName}</span></td>
-                </tr>
-                <tr>
-                    <th width="15%"><span>Address</span></th>
-                    <td width="48%"><span>${booking.customerAddress}</span></td>
-                    <th width="14%"><span>Invoice No</span></th>
-                    <td colspan="3" width="20%"><span>${booking.billGeneration.billNo}</span></td>
-                </tr>
-                <tr>
-                    <th width="15%"><span>Phone No</span></th>
-                    <td width="48%"><span >${booking.customerPhNo}</span></td>
-                    <th width="14%"><span>Invoice Date</span></th>
-                    <td colspan="3" width="20%"><span><g:formatDate format="dd/MM/yyyy" date="${booking.billGeneration.invoiceDate}"></g:formatDate></span></td>
-                </tr>
-                <tr>
-                    <th width="15%"><span>GST</span></th>
-                    <td width="46%"><span >${booking?.billGeneration?.customerGst}</span></td>
-                    <th width="15%"><span>Check In Date</span></th>
-                    <td width="8%"><span><g:formatDate format="dd/MM/yyyy" date="${booking.checkInDate}"></g:formatDate></span></td>
-                    <th width="3%"><span>Time</span></th>
-                    <td width="8%"><span><g:formatDate format="HH:mm aa" date="${booking.checkInTime}"/></span></td>
-                </tr>
-                <tr>
-                    <th><span>Others</span></th>
-                    <td><span></span></td>
-                    <th><span>Check Out Date</span></th>
-                    <td><span><g:formatDate format="dd/MM/yyyy" date="${booking.checkOutDate}"></g:formatDate></span></td>
-                    <th><span> Time</span></th>
-                    <td><span><g:formatDate format="HH:mm aa" date="${booking.checkOutTime}"/></span></td>
-                </tr>
-            </table>
-        </div>
-        <table class="inventory" style="padding-bottom: 0px">
-            <thead>
-            <tr>
-                <th width="10% !important"><span >Room No</span></th>
-                <th width="12% !important"><span >No. Of Guest</span></th>
-                <th width="12% !important"><span >No. Of Days</span></th>
-                <th width="19% !important"><span >Room Rate(with Tax)</span></th>
-                <th width="10% !important"><span >Tax @</span></th>
-                <th width="15% !important"><span >Tax</span></th>
-                <th width="26% !important"><span >Total</span></th>
-            </tr>
-            </thead>
-            <tbody>
-            <g:each in="${booking.billGeneration.roomDetails}" var="room">
-                <tr>
-                    <td><span>${room.roomNo}</span></td>
-                    <td><span>${room.noOfPerson}</span></td>
-                    <td><span>${room.noOfDays}</span></td>
-                    <td><span >Rs </span><span>${room.roomRate}</span></td>
-                    <td><span >${room.taxRate}</span></td>
-                    <td><span >Rs </span><span >${room.tax}</span></td>
-                    <td><span >Rs </span><span>${room.total}</span></td>
-                </tr>
-            </g:each>
-            </tbody>
-        </table>
-        <table class="" style="padding-top: 0; padding-left: 0">
-            <tr>
-                <th colspan="1" style="width: 10%"><span>Rooms</span></th>
-                <td colspan="1" style="width: 12%"><span>${tRoom}</span></td>
-                <th colspan="1" style="width: 12%"><span>Total Days</span></th>
-                <td colspan="1" style="width: 19%"><span>${booking.billGeneration.roomDetails.noOfDays[0]}</span></td>
-                <th colspan="2" style="width: 25%"><span>Other Extra Charges</span></th>
-                <td colspan="1" style="width: 27%"><span></span>RS. <span>${booking.billGeneration.otherCharges}</span></td>
-            </tr>
-            <tr>
-                <th colspan="2"><span>Amount in Words</span></th>
-                <td colspan="6"><span>Rupees ${booking.billGeneration.amtInWords} Only</span></td>
-            </tr>
-        </table>
-        <div style="position:fixed; left:6%; bottom:0px; width:100%;">
-            <table class="balance" style="padding-top: 0px;">
-                <tr>
-                    <th><span>SGST</span></th>
-                    <td><span>Rs ${booking.billGeneration.sgst}</span></td>
-                    <th><span>Total Excl.</span></th>
-                    <td><span>Rs ${total}</span></td>
-                </tr>
-                <tr>
-                    <th><span>CGST</span></th>
-                    <td><span>Rs ${booking.billGeneration.cgst}</span></td>
-                    <th><span>Total Tax</span></th>
-                    <td><span >Rs. </span><span>${booking.billGeneration.gstTotal}</span></td>
-                </tr>
-                <tr>
-                    <th><span>Total</span></th>
-                    <td><span>Rs ${booking.billGeneration.gstTotal}</span></td>
-                    <th ><span>Total</span></th>
-                    <td><span >Rs </span><span>${booking.billGeneration.total}</span></td>
-                </tr>
-            </table>
-            <aside>
-                <p style="font-size: 9px">Terms and Conditions</p> <p style="font-size: smaller">
-                1. A finance charge of 1.5% will be made on unpaid balances after 30 days.<br> </br>
-                2. A finance charge of 1.5% will be made on unpaid balances after 30 days.<br> </br>
-                3. A finance charge of 1.5% will be made on unpaid balances after 30 days.<br> </br>
-                4. A finance charge of 1.5% will be made on unpaid balances after 30 days.<br> </br>
-                5. A finance charge of 1.5% will be made on unpaid balances after 30 days.
-            </p>
-            </aside>
-            <p style="float: right; padding-left: 80%; font-size: 9px;">FOR ${hr.hotelName}
-                <br></br><br></br><br></br><br></br>
-                Authorised Signatory</p>
-        </div>
-    </article>
-</div>
+
 </body>
 </html>

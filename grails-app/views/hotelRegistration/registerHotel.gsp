@@ -75,7 +75,7 @@
                                     </span>
                                     <div class="form-group label-floating">
                                         <label class="control-label">Password</label>
-                                        <input name="password" title="password" type="password" id="password" class="form-control">
+                                        <input name="password" title="password" type="text" id="password" class="form-control">
                                     </div>
                                 </div>
                                 <div class="input-group">
@@ -169,11 +169,11 @@
             ,
             change_gstin_alert: "required('gstin','Mandatory to Enter!'),alphanumeric('gstin','Invalid GSTIN Number!'),gstinLength('gstin','GSTIN must be 15 digit number!')"
             ,
-            change_email_alert: "required('email','Mandatory to Enter!'),email('email','Invalid email!')"
+            change_email_alert: "required('email','Mandatory to Enter!')"
             ,
-            change_password_alert: "required('password','Mandatory to Enter!'),checkPassword('password','Password should contain atleast 1 capital, 1 lowercase alphabet, 1 special character and 1 number!')"
+            change_password_alert: "required('password','Mandatory to Enter!'))"
             ,
-            change_address_alert: "alphaNumericSymbols('address','Invalid Address. Re-Enter!')"
+            change_address_alert: "maxLength( 'address', 40, 'Address should be maximum 40 letters ')"
         };
         init_validations(myVal);
     });

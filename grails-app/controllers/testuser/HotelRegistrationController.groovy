@@ -106,8 +106,7 @@ class HotelRegistrationController {
     }
 
     def updateHotelRegister(){
-        testuser.HotelRegistration hotelRegistration = testuser.HotelRegistration.findByEmail(params.email)
-        print(hotelRegistration.email)
+        testuser.HotelRegistration hotelRegistration = testuser.HotelRegistration.findByEmail(params.hotelEmail)
         hotelRegistration.email = params.email
         hotelRegistration.hotelName= params.hotelName
         hotelRegistration.gstin = params.gstin
@@ -118,10 +117,14 @@ class HotelRegistrationController {
         try {
             //hotelRegistrationService.save(hotelRegister1)
             hotelRegistration.save(flush:true,failOnError:true)
-            def me = new User(username:hotelRegistration.email, password:hotelRegistration.password).save()
+            println(hotelRegistration.email)
+            User me = User.findByUsername(params.hotelEmail)
+            me.username= hotelRegistration.email
+            me.password= hotelRegistration.password
+            me.save(flush:true,failOnError:true)
             def userRole = new Role(authority:'ROLE_USER').save()
             UserRole.create me, userRole
-            UserRole.withSession {
+            UserRole.withSession{
                 it.flush()
                 it.clear()
             }
@@ -161,10 +164,11 @@ class HotelRegistrationController {
             }
             hotelRegistrationService.save(hotelRegister1)
             flash.message = "successfully registered"
-
         } catch (ValidationException e) {
             flash.error = "failed"
-            respond hotelRegister1.errors, view:'registerHotel'
+            println("In Catch")
+            redirect hotelRegister1.errors, view: '/hotelRegistration/registerHotel'
+            //respond hotelRegister1.errors, view: '/hotelRegistration/registerHotel'
             return
         }
         chain(controller:'hotelRegistration',action: 'adminDash')

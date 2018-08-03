@@ -90,31 +90,33 @@ function updateDays()
     var date1 = GetDate(checkout);
     var date2 = GetDate(checkin);
     var diffDays = Math.floor(( Date.parse(date1) - Date.parse(date2) ) / 86400000);
-   //alert(diffDays);
+    if(diffDays==0)
+    {
+        diffDays=1;
+    }
     return diffDays;
 }
 function GetDate(str)
 {
-
     var arr = str.split('/');
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    var i = 1;
-    for (i; i <= months.length; i++) {
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var i = 0;
+    var j;
+    for (i; i < months.length; i++) {
         if (months[i] == arr[1])
         {
+            j=i+1;
             break;
         }
     }
-    var formatddate = i  + '/' + arr[0] + '/' + arr[2];
+    var formatddate = j  + '/' + arr[0] + '/' + arr[2];
     return formatddate;
-
 }
 
 /* Update Invoice
  /* ========================================================================== */
 
 function updateInvoice() {
-
     var total = 0;
     var totalTax = 0.0;
     var tax = 0.00;
@@ -122,6 +124,7 @@ function updateInvoice() {
     var cells, price, sprice, nodays, total, a, i;
 
     nodays = updateDays();
+
     // update inventory cells
     // ======================
     for (var a = document.querySelectorAll('table.inventory tbody tr'), i = 0; a[i]; ++i) {
@@ -320,9 +323,7 @@ function updateTotal() {
     // update balance cells
     // ====================
 
-
     var cells;
-
 
     // get balance cells
     // cells = document.querySelectorAll('table.balance td:last-child span:last-child');

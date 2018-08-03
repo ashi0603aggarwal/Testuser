@@ -11,7 +11,7 @@
             </div>
             <div class="col-lg-3">
                 <label class="control-label">Booking Status:</label><br>
-                <g:select name="status" id="status" from="['Open','Closed']" onchange="greetName()" noSelection="['':'-Select-']"></g:select><br>
+                <g:select name="status" id="status" from="['Open','Closed','Cancelled']" onchange="greetName()" noSelection="['':'-Select-']"></g:select><br>
             </div>
             <div class="col-lg-3">
                 <label class="control-label">Invoice Date:</label>

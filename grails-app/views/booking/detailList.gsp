@@ -24,11 +24,12 @@
 
 <script>
     function greetName() {
+        var status = document.getElementById('status').value;
         var maxDateRange = document.getElementById('maxDateRange').value;
         var minDateRange = document.getElementById('minDateRange').value;
         $.ajax({
             url:'${g.createLink( controller:'booking', action:'filterBooking' )}',
-            data:{ minDateRange:minDateRange, maxDateRange:maxDateRange},
+            data:{ minDateRange:minDateRange, maxDateRange:maxDateRange, status: status},
             success: function(data) {
                 $("#hotelbookings").html(data.htmlContent);
             }

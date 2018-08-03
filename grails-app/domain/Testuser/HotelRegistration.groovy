@@ -12,8 +12,8 @@ class HotelRegistration {
 
     static constraints = {
         hotelName blank: false
-        password size: 5..15, blank: false, password:true
-        email email: true, blank: false,unique: true
+        password size: 4..15, blank: false
+        email  blank: false,unique: true
         gstin unique: true, blank: false
         hotelLicenceNo unique: true, blank: false
         foodLicenceNo unique: true, blank: false

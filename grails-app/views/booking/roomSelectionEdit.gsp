@@ -52,8 +52,8 @@ th, td { border-radius: 0.20em; border-style: solid; }
             <g:hiddenField name="oyo" value="${p.oyo}"/>
             <g:hiddenField name="cash" value="${p.cash}"/>
             <g:hiddenField name="paytm" value="${p.paytm}"/>
-
-            <g:actionSubmit class="btn btn-success btn-lg" value="Save Changes"  action="editForm"/>
+            <br/><br/>
+            <g:actionSubmit class="btn btn-success btn-lg" value="Save Changes"  action="editForm" style="margin-left: 45%; font-size: 25px;"/>
 
         </g:form>
     </ol>

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ROMI
-  Date: 5/28/2018
-  Time: 5:29 PM
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -15,17 +8,18 @@
 table { font-size:65%; width: 10%; border-collapse: separate; border-spacing: 1px;}
 th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
 th, td { border-radius: 0.20em; border-style: solid; }
+
+
 </style>
 <body>
 <div >
-    <h3 align="right"><a href="/default/dash" class="btn btn-lg btn-info" role="button">Back</a></h3>
+    <h2 align="right"><a href="/default/dash" class="btn btn-lg btn-info" role="button">Back</a></h2>
 
     <div class="cockpit">
         <h1>Room availability </h1>
     </div>
 
     <ol class="cabin fuselage">
-
             <g:each in="${1..r}" var="ro">
                 <li class="row">
                     <ol class="seats" type="A">
@@ -36,14 +30,13 @@ th, td { border-radius: 0.20em; border-style: solid; }
                                 <g:set var="disabled" value="disabled"/>
                             </g:if>
                             <li class="seat">
-                                <input type="checkbox" name="check" ${disabled} id="${room.roomNo}" value="${room.roomNo}" />
+                                <input class="single-checkbox" type="checkbox" name="check" ${disabled} id="${room.roomNo}" value="${room.roomNo}" />
                                 <label for="${room.roomNo}">${room.roomNo}</label>
                             </li>
                         </g:each>
                     </ol>
                 </li>
             </g:each>
-
     </ol>
 </div>
 <br><br>
@@ -65,6 +58,12 @@ th, td { border-radius: 0.20em; border-style: solid; }
         <td bgcolor="#adff2f"></td>
     </tr>
 </table>
-
 </body>
+<script>
+    $('.single-checkbox').on('change', function() {
+        if($('.single-checkbox:checked').length > 3) {
+            this.checked = false;
+        }
+    });
+</script>
 </html>

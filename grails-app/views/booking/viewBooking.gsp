@@ -93,9 +93,9 @@
                                     <span class="input-group-addon">
                                         <i class="material-icons">book</i>
                                     </span>
-                                    <div class="form-group label-floating">
+                                    <div class="form-group label-floating" style="width: 60%">
                                         <label class="control-label">Booked By</label>
-                                        <input name="bookedBy" title="bookedBy" type="text" id="bookedBy" class="form-control" value="${booking.bookedBy}">
+                                        <g:select name="bookedBy" id="bookedBy" from="['HOTEL BOOKING','OYO','GOIBIBO','TRIVAGO','MMT']" value="${booking.bookedBy}" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class='input-group date' id='checkInDate'>
@@ -145,7 +145,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="paytm">PayTM</label>
-                                                <input type="text" class="form-control" name="paytm" id="paytm" placeholder=value="${booking.billGeneration.paytmAdvance}">
+                                                <input type="text" class="form-control" name="paytm" id="paytm" value="${booking.billGeneration.paytmAdvance}">
                                             </div>
                                             <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Done</button>
                                         </form>

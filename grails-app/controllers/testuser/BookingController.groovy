@@ -147,21 +147,50 @@ class BookingController {
 
         }
     }
+    def roomrates(roomNos,roomRate,roomNo)
+    {
+        BillGeneration billGeneration= new BillGeneration()
+        if(roomNo.class.isArray()) {
+            List<RoomDetails> rms = []
+            roomNos.eachWithIndex { it, index ->
+                RoomDetails roomDetails = new RoomDetails()
+                roomDetails.roomNo = roomNos.get(index)
+                roomDetails.roomRate = roomRate.get(index)
+                rms.add(roomDetails)
+                billGeneration.roomDetails = rms
+            }
+        }
+        else
+        {
+            List<RoomDetails> rms = []
+            RoomDetails roomDetails = new RoomDetails()
+            roomDetails.roomNo = params.roomNo
+            roomDetails.roomRate = params.roomRate
+            rms.add(roomDetails)
+            billGeneration.roomDetails = rms
+        }
+        //chain(controller:'default',action: 'dash')
+        return billGeneration.roomDetails
+    }
     def submitForm()
     {
         User user = (User)springSecurityService.currentUser
         HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
         HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
-        Booking booking1 = new Booking(customerName: params.customerName,customerAddress: params.customerAddress,customerEmail:params.customerEmail,customerPhNo: params.customerPhNo,bookedBy: params.bookedBy,blockedBy: params.blockedBy )
+        Booking booking1 = new Booking(customerName: params.customerName,customerAddress: params.customerAddress,customerEmail:params.customerEmail,customerPhNo: params.customerPhNo,bookedBy: params.bookedBy )
         String noOfPerson = params.noOfPerson
         booking1.noOfPerson = noOfPerson?.toInteger()
         String inDate = params.checkInDate
-        println(params.customerAddress)
         Date checkInDate = new Date().parse("dd/MMM/yyyy",inDate)
         booking1.checkInDate = checkInDate
+        String checkIn = booking1.checkInDate.format("dd/MMM/yyyy")
+
         String inTime = params.checkInTime
         Date checkInTime = new Date().parse("hh:mm aa",inTime)
         booking1.checkInTime = checkInTime
+        String itime =  booking1.checkInTime.format("hh:mm aa")
+
+        booking1.bookingStatus = "Open"
         booking1.hotelDetails = hotelDetails
         if (!booking1.billGeneration)
         {
@@ -188,22 +217,37 @@ class BookingController {
                 billGeneration.paytmAdvance = paytmAdvance
             }
             else{billGeneration.paytmAdvance = 0}
+
+            List roomNos = params.roomNo.toList()
+            List roomRate = params.roomRate.toList()
+            billGeneration.roomDetails = roomrates(roomNos,roomRate,params.roomNo)
+
             billGeneration.save(flush: true,failOnError : true)
             booking1.billGeneration = billGeneration
         }
+
+        hotelDetails.bookings.add(booking1)
+        hotelDetails.save(flush: true,failOnError : true)
+
         List values = request.getParameterValues("check")
         List<HotelRooms> hotelRoomsList = HotelRooms.findAllByRoomNoInList(values)
         hotelRoomsList.each {
             booking1.roomsBooked.add(it.roomNo)
-            it.availability = "No"
-            it.save(flush: true,failOnError : true)
+            if(it.availability== "No")
+            {
+                println ("Rooms not available")
+            }
+            else {
+                it.availability = "No"
+                it.save(flush: true, failOnError: true)
+            }
         }
-        hotelDetails.bookings.add(booking1)
-        hotelDetails.save(flush: true,failOnError : true)
 
         flash.message = "successfully booked"
-        chain(controller:'default',action: 'dash')
+       // render (view:'/billGeneration/roomrates', model: [booking1:booking1,hr:hr,hotelDetails:hotelDetails,checkIn:checkInDate,itime: checkInTime])
+         chain(controller:'default',action: 'dash')
     }
+
     def editForm()
     {
         User user = (User)springSecurityService.currentUser
@@ -217,7 +261,6 @@ class BookingController {
         booking1.customerEmail = params.customerEmail
         booking1.customerPhNo = params.customerPhNo
         booking1.bookedBy = params.bookedBy
-        //booking1.blockedBy = params.blockedBy
         String noOfPerson = params.noOfPerson
         booking1.noOfPerson = noOfPerson?.toInteger()
         String inDate = params.checkInDate
@@ -227,7 +270,6 @@ class BookingController {
         Date checkInTime = new Date().parse("hh:mm aa",inTime)
         booking1.checkInTime = checkInTime
         booking1.hotelDetails = hotelDetails
-
         if(booking1.bookingStatus=="Open")
         {
             List<String> oldRoomsList = booking1.roomsBooked
@@ -289,7 +331,7 @@ class BookingController {
         def bookingcount = (hotelDetails.bookings.findAll()).size()
         println(bookingcount)
         params.max=20
-        List<Booking> booking1 = Booking.findAllByHotelDetails((hotelDetails), params)
+        List<Booking> booking1 = Booking.findAllByHotelDetailsAndBookingStatusNotEqual(hotelDetails,"Cancelled", params)
         render(view: 'guestList', model: [booking1:booking1,bookingcount:bookingcount,params:params])
     }
     def detailList(){
@@ -351,6 +393,7 @@ class BookingController {
         String phNo = params.customerPhNo
         String ph = "%" +phNo + "%"
         String status = params.status
+        println(status)
         String invoiceDate = params.invoiceDate
         User user = (User)springSecurityService.currentUser
         HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
@@ -383,7 +426,7 @@ class BookingController {
             }
                 else{
                 println("none")
-                booking1 = Booking.findAllByHotelDetails(hotelDetails,params)
+                booking1 = Booking.findAllByHotelDetailsAndBookingStatusNotEqual(hotelDetails,"Cancelled",params)
                 bookingcount= (Booking.findAllByHotelDetails(hotelDetails)).size()
             }
         }
@@ -432,6 +475,7 @@ class BookingController {
     def filterBooking(){
         String maxDateRange = params.maxDateRange
         String minDateRange = params.minDateRange
+        String status = params.status
         User user = (User)springSecurityService.currentUser
         HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
         HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
@@ -440,14 +484,30 @@ class BookingController {
         params.max=20
         if(maxDateRange && minDateRange )
         {
-            Date endDate = new Date().parse("dd/MMM/yyyy",maxDateRange)
-            Date startDate = new Date().parse("dd/MMM/yyyy",minDateRange)
-            booking1 = Booking.findAllByBillGenerationInListAndHotelDetails(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate,endDate),hotelDetails,params)
-            bookingcount= (Booking.findAllByBillGenerationInListAndHotelDetails(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate,endDate),hotelDetails)).size()
+            if(status)
+            {
+                Date endDate = new Date().parse("dd/MMM/yyyy", maxDateRange)
+                Date startDate = new Date().parse("dd/MMM/yyyy", minDateRange)
+                booking1 = Booking.findAllByBillGenerationInListAndHotelDetailsAndBookedBy(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate, endDate), hotelDetails, status, params)
+                bookingcount = (Booking.findAllByBillGenerationInListAndHotelDetailsAndBookedBy(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate, endDate), hotelDetails,status)).size()
+            }
+            else {
+                Date endDate = new Date().parse("dd/MMM/yyyy", maxDateRange)
+                Date startDate = new Date().parse("dd/MMM/yyyy", minDateRange)
+                booking1 = Booking.findAllByBillGenerationInListAndHotelDetails(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate, endDate), hotelDetails, params)
+                bookingcount = (Booking.findAllByBillGenerationInListAndHotelDetails(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate, endDate), hotelDetails)).size()
+            }
         }
         else {
-            booking1 = Booking.findAllByHotelDetails(hotelDetails,params)
-            bookingcount=  (Booking.findAllByHotelDetails(hotelDetails)).size()
+            if(status)
+            {
+                booking1 = Booking.findAllByHotelDetailsAndBookedBy(hotelDetails,status, params)
+                bookingcount = (Booking.findAllByHotelDetailsAndBookedBy(hotelDetails,status)).size()
+            }
+            else {
+                booking1 = Booking.findAllByHotelDetails(hotelDetails, params)
+                bookingcount = (Booking.findAllByHotelDetails(hotelDetails)).size()
+            }
         }
         /*List<Booking> bookings = []
         bookings = Booking.findAllByHotelDetails(hotelDetails)
@@ -496,4 +556,21 @@ class BookingController {
         double advPaymentAmt= booking.billGeneration.cashAdvance + booking.billGeneration.oyoAdvance + booking.billGeneration.paytmAdvance
         return new ModelAndView("/billGeneration/bill", [booking:booking,checkInDate:checkInDate,checkInTime:checkInTime,noOfDays:noOfDays,advPaymentAmt:advPaymentAmt, hr:hr, hotelDetails:hotelDetails])
     }
+
+    def cancelBooking() {
+        User user = (User)springSecurityService.currentUser
+        testuser.HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
+        String id = params.id
+        Long bookingId = id.toLong()
+        Booking booking = Booking.findById(bookingId)
+        List<HotelRooms> hotelRoomsList = HotelRooms.findAllByRoomNoInList(booking.roomsBooked)
+        hotelRoomsList.each {
+            it.availability = "Yes"
+            it.save(flush: true,failOnError : true)
+        }
+        booking.bookingStatus="Cancelled";
+        booking.save(flush: true,failOnError : true)
+        guestList();
+    }
+
 }

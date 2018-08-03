@@ -24,10 +24,10 @@
 
 <script>
     function greetName() {
-        var name = document.getElementById('customerName').value
-        var customerPhNo = document.getElementById('customerPhNo').value
-        var status = document.getElementById('status').value
-        var invoiceDate = document.getElementById('invoiceDate').value
+        var name = document.getElementById('customerName').value;
+        var customerPhNo = document.getElementById('customerPhNo').value;
+        var status = document.getElementById('status').value;
+        var invoiceDate = document.getElementById('invoiceDate').value;
         $.ajax({
             url:'${g.createLink( controller:'booking', action:'filterBookings' )}',
             data:{ name: name , customerPhNo: customerPhNo, status: status,invoiceDate:invoiceDate},

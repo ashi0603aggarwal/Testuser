@@ -16,7 +16,6 @@ class Booking {
     String customerPhNo
     String bookingStatus = "Open"
     String bookedBy
-    String blockedBy
     static hasMany = [roomsBooked: String]
     List roomsBooked = []
     BillGeneration billGeneration
@@ -28,8 +27,10 @@ class Booking {
         checkInTime(nullable: true, blank: true,)
         checkOutTime(nullable: true, blank: true)
         customerEmail(nullable: true, email: true)
+        customerAddress(nullable: true, blank: true)
+        customerPhNo(nullable: true, blank: true)
+        noOfPerson(nullable: true, blank: true)
         bookedBy(nullable: true, null: true, blank: true)
-        blockedBy(nullable: true, null: true, blank: true)
         billGeneration(nullable: true, blank: true)
     }
 

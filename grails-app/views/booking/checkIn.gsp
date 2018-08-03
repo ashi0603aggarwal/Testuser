@@ -94,9 +94,9 @@
                                     <span class="input-group-addon">
                                         <i class="material-icons">book</i>
                                     </span>
-                                    <div class="form-group label-floating">
+                                    <div class="form-group label-floating" style="width: 60%">
                                         <label class="control-label">Booked By</label>
-                                        <g:select name="bookedBy" id="bookedBy" from="['Self','Oyo','GoIbibo']" class="form-control"/>
+                                        <g:select name="bookedBy" id="bookedBy" from="['HOTEL BOOKING','OYO','GOIBIBO','TRIVAGO','MMT']" class="form-control"/>
                                     </div>
                                 </div>
 
@@ -175,15 +175,15 @@
         });
 
         var myVal = {
-            change_customerName_alert: "required( 'customerName', 'Mandatory to Enter!' ),alphabets('customerName','Invalid Name. Re-Enter!'),minLength('customerName',3,'Not Meeting Minimum Length criteria. Re-Enter!')"
+            change_customerName_alert: "required( 'customerName', 'Mandatory to Enter!' )"
             ,
-            change_customerEmail_alert: "email('customerEmail','Not a valid Email Id. Re-Enter!'),minLength('customerEmail',6,'Not Meeting Minimum Length criteria. Re-Enter!')"
+            change_customerEmail_alert: "email('customerEmail','Not a valid Email Id. Re-Enter!')"
             ,
-            change_customerPhNo_alert: "required( 'customerPhNo', 'Mandatory to Enter!' ),checkMobileNumber('customerPhNo','Invalid Mobile Number. Re-Enter!')"
+            change_customerPhNo_alert: "checkMobileNumber('customerPhNo','Invalid Mobile Number. Re-Enter!')"
             ,
             change_noOfPerson_alert: "numeric('noOfPerson','Invalid No Of Person!')"
             ,
-            change_customerAddress_alert: "required( 'customerAddress', 'Mandatory to Enter!' ),notEmpty('customerAddress','Invalid address entered. Re-Enter!'),alphaNumericSymbols('customerAddress','Invalid address entered. Re-Enter!')"
+            change_customerAddress_alert: "alphaNumericSymbols('customerAddress','Invalid address entered. Re-Enter!')"
 
         };
         init_validations(myVal);

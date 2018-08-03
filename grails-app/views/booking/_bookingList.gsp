@@ -29,15 +29,20 @@
 
                 <g:if test="${b.bookingStatus == "Open"}">
                     <td data-title="Generate Bill/Checkout">
+                         &nbsp;<g:link action="cancelBooking" id="${b.id}">Cancel Booking</g:link>
                          &nbsp;<g:link action="checkOut" id="${b.id}">Checkout</g:link>
                     </td>
                 </g:if>
-                <g:else>
+                <g:if test="${b.bookingStatus == "Closed"}">
                     <td data-title="Generate Bill/Checkout">
                         <g:link controller="billGeneration" action="viewBill" id="${b.id}">View</g:link> &nbsp;
                         <g:link controller="billGeneration" action="editBill" id="${b.id}">Edit</g:link> &nbsp;
-                        <g:link controller="billGeneration" action="printBill" id="${b.id}">Print</g:link>
+                        <g:link controller="billGeneration" action="printBill" id="${b.id}">Print A4</g:link>&nbsp;
+                        <g:link controller="billGeneration" action="printBillA5" id="${b.id}">Print A5</g:link>
                     </td>
+                </g:if>
+                <g:else>
+                    Cancelled
                 </g:else>
             </tr>
         </g:each>

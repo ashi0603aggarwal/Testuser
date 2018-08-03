@@ -1,9 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ROMI
-  Date: 5/28/2018
-  Time: 5:29 PM
---%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
@@ -15,9 +9,10 @@
 table { font-size:65%; width: 10%; border-collapse: separate; border-spacing: 1px;}
 th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
 th, td { border-radius: 0.20em; border-style: solid; }
+
 </style>
 <body>
-<div >
+<div>
     <div class="cockpit">
         <h1>Room availability </h1>
     </div>
@@ -34,8 +29,9 @@ th, td { border-radius: 0.20em; border-style: solid; }
                                 <g:set var="disabled" value="disabled"/>
                             </g:if>
                             <li class="seat">
-                                <input type="checkbox" name="check" ${disabled} id="${room.roomNo}" value="${room.roomNo}" />
+                                <input type="checkbox" name="check" ${disabled} id="${room.roomNo}" value="${room.roomNo}" onclick="getRooms(${room.roomNo})"/>
                                 <label for="${room.roomNo}">${room.roomNo}</label>
+
                             </li>
                         </g:each>
                     </ol>
@@ -53,10 +49,19 @@ th, td { border-radius: 0.20em; border-style: solid; }
             <g:hiddenField name="oyo" value="${p.oyo}"/>
             <g:hiddenField name="cash" value="${p.cash}"/>
             <g:hiddenField name="paytm" value="${p.paytm}"/>
-            <g:actionSubmit value="Submit" action="submitForm"/>
+            <br/><br/>
+
+
+
+            <div class="input-group" style="padding-left: 43%;">
+              <button type="button" class="btn btn-success btn-lg" id="myBtn" onclick="enterRates()">Enter Room Rates</button>
+            </div>
+            <div id="box" style="padding-left: 38%; width: inherit"></div>
+
+            <br/><br/>
+            <g:actionSubmit value="Submit" class="btn btn-success btn-lg" action="submitForm" style="margin-left: 45%;" />
+            </ol>
         </g:form>
-    </ol>
-</div>
 
 <br><br>
 <table border="1">
@@ -77,6 +82,42 @@ th, td { border-radius: 0.20em; border-style: solid; }
         <td bgcolor="#adff2f"></td>
     </tr>
 </table>
-
+</div>
 </body>
+<script>
+    var countRooms = 0;
+    var roomSelected = [];
+    function getRooms(roomNo)
+    {
+        var rooms =  roomNo;
+        if(countRooms<5)
+        {
+            countRooms= countRooms+1;
+            roomSelected.push(roomNo);
+        }
+        else{
+            alert("Cannot select more than 5 Rooms");
+            document.getElementById(roomNo).checked = false;
+        }
+    }
+
+    function enterRates()
+    {
+        var html = "<table style='font-size: 18px; width:inherit;  '>";
+        html+="<tr>";
+        html+="<th>"+"Room No"+"</th>";
+        html+="<th>"+"Room Rate"+"</th>";
+        html+="</tr>";
+        for (var i = 0; i < roomSelected.length; i++) {
+            html+="<tr>";
+            html+="<td>"+"<input type='text' class='roomNo' name='roomNo' value='"+roomSelected[i]+"'  style='border: 0; font-size: 18px;' readonly></td>";
+            html+="<td><input type='text' class='roomRate' name='roomRate'></td>";
+            html+="</tr>";
+        }
+        html+="</table>";
+        document.getElementById("box").innerHTML = html;
+    }
+
+</script>
+
 </html>

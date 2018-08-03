@@ -114,6 +114,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <g:hiddenField name="hotelEmail" value="${hotelRegistration.email}"/>
                         </div>
                         <div class="wizard-footer">
                             <div class="pull-right">
@@ -167,13 +168,13 @@
         var myVal = {
             change_hotelName_alert: "required('hotelName','Mandatory to Enter!'),alphanumeric('hotelName','Invalid Hotel Name!')"
             ,
-            change_gstin_alert: "required('gstin','Mandatory to Enter!'),alphanumeric('gstin','Invalid GSTIN Number!')"
+            change_gstin_alert: "required('gstin','Mandatory to Enter!'),alphanumeric('gstin','Invalid GSTIN Number!'),gstinLength('gstin','GSTIN must be 15 digit number!')"
             ,
-            change_email_alert: "required('email','Mandatory to Enter!'),email('email','Invalid Number!')"
+            change_email_alert: "required('email','Mandatory to Enter!')"
             ,
-            change_password_alert: "required('password','Mandatory to Enter!'),checkPassword('password','Invalid Password!')"
+            change_password_alert: "required('password','Mandatory to Enter!'))"
             ,
-            change_address_alert: "alphaNumericSymbols('address','Invalid Address. Re-Enter!')"
+            change_address_alert: "maxLength( 'address', 40, 'Address should be maximum 40 letters ')"
         };
         init_validations(myVal);
     });

@@ -37,6 +37,7 @@ class BillGenerationController {
         //test
     }
 
+
     def createInvoice(params){
         User user = (User)springSecurityService.currentUser
         testuser.HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
@@ -70,6 +71,9 @@ class BillGenerationController {
 
         billGeneration.save(flush: true,failOnError : true)
         Booking booking = Booking.findByBillGeneration(billGeneration)
+        String checkIn = params.checkInDate
+        Date checkInDate = new Date().parse("dd/MMM/yyyy",checkIn)
+        booking.checkInDate=checkInDate
         String checkOut = params.checkOutDate
         Date checkOutDate = new Date().parse("dd/MMM/yyyy",checkOut)
         booking.checkOutDate=checkOutDate
@@ -92,6 +96,7 @@ class BillGenerationController {
             List taxRate = params.taxRate.toList()
             List total = params.total.toList()
             List<RoomDetails> rms = []
+            billGeneration.roomDetails.removeAll()
 
             roomNos.eachWithIndex { it, index ->
                 RoomDetails roomDetails = new RoomDetails()
@@ -110,6 +115,8 @@ class BillGenerationController {
         else
         {
             List<RoomDetails> rms = []
+            billGeneration.roomDetails.remove()
+
             RoomDetails roomDetails = new RoomDetails()
             roomDetails.roomNo = params.roomNo
             roomDetails.roomRate = params.roomRate
@@ -136,7 +143,6 @@ class BillGenerationController {
         testuser.HotelDetails hotelDetails = testuser.HotelDetails.findByHotelRegistration(hr)
         //render(view: 'createinvoice',model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
         renderPdf(template: 'billPdf', model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
-
     }
 
     def viewBill()
@@ -167,7 +173,21 @@ class BillGenerationController {
         //renderPdf(template: "/billGeneration/printinvoice", model: [booking: booking, hr: hr, hotelDetails: hotelDetails, total: total, tRoom: tRoom], filename: "invoice.pdf")
         renderPdf(template: 'billPdf', model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom,test:"test"])
     }
-
+    def printBillA5() {
+        String id = params.id
+        Long bookingId = id.toLong()
+        //def bId = Booking.get( params.offerId )
+        Booking booking = Booking.findById(bookingId)
+        User user = (User) springSecurityService.currentUser
+        testuser.HotelRegistration hr = HotelRegistration.findByEmail(user.username)
+        testuser.HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
+        def total = booking.billGeneration.total - booking.billGeneration.gstTotal
+        def tRoom = booking.billGeneration.roomDetails.size().toInteger()
+        //def createPdfReport = { renderPdf(template: '/billGeneration/createinvoice', model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom], filename: "invoice") }
+        //render(view: 'createinvoice',model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
+        //renderPdf(template: "/billGeneration/printinvoice", model: [booking: booking, hr: hr, hotelDetails: hotelDetails, total: total, tRoom: tRoom], filename: "invoice.pdf")
+        renderPdf(template: 'billPdfA5', model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom,test:"test"])
+    }
     def bill(){
         User user = (User)springSecurityService.currentUser
         testuser.HotelRegistration hr =  HotelRegistration.findByEmail(user.username)

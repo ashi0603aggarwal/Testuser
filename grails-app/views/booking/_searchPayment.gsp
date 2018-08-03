@@ -1,6 +1,10 @@
 <div>
     <g:form action="filterBooking" name="filterBooking">
         <div class="form-group label-floating row">
+            <div class="col-lg-3">
+                <label class="control-label">Booked By:</label><br>
+                <g:select name="status" id="status" from="['HOTEL BOOKING','OYO','GOIBIBO','TRIVAGO','MMT']" onchange="greetName()" noSelection="['':'-Select-']"></g:select><br>
+            </div>
             <div class="col-lg-3" style="padding-left: 30px">
                 <label class="control-label">From Date</label>
                 <div class="row" >

@@ -20,7 +20,12 @@
 <h3 align="right"><a href="/default/dash" class="btn btn-lg" role="button">Dashboard</a></h3>
     <header>
         <g:if test="${booking?.billGeneration?.total>999}">
-            <h2 id="billHeading"> Tax Invoice</h2>
+            <g:if test="${booking?.billGeneration?.gstTotal>0}">
+                <h2 id="billHeading">Tax Invoice</h2>
+            </g:if>
+            <g:else>
+                <h2 id="billHeading">Bill Of Supply</h2>
+            </g:else>
         </g:if>
         <g:else>
             <h2 id="billHeading">Bill Of Supply</h2>
@@ -39,15 +44,15 @@
         <div class="row">
             <table class="col-lg-12">
                 <tr>
-                    <th width="16.5%"><span>Guest Name</span></th>
-                    <td width="82.5%"><span>${booking.customerName}</span></td>
+                    <th width="14%"><span>Guest Name</span></th>
+                    <td width="82%"><span>${booking.customerName}</span></td>
                 </tr>
             </table>
             <div class="col-md-7" style="padding-right: 0;">
             <table class="">
                 <tr>
-                    <th><span>Address</span></th>
-                    <td><span>${booking.customerAddress}</span></td>
+                    <th width="25%"><span>Address</span></th>
+                    <td width="75%"><span>${booking.customerAddress}</span></td>
                 </tr>
                 <tr>
                     <th><span>Phone No</span></th>
