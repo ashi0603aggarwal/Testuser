@@ -60,9 +60,9 @@ th, td { border-radius: 0.20em; border-style: solid; }
 
             <br/><br/>
             <g:actionSubmit value="Submit" class="btn btn-success btn-lg" action="submitForm" style="margin-left: 45%;" />
-            </ol>
-        </g:form>
 
+        </g:form>
+    </ol>
 <br><br>
 <table border="1">
     <tr>
@@ -87,20 +87,24 @@ th, td { border-radius: 0.20em; border-style: solid; }
 <script>
     var countRooms = 0;
     var roomSelected = [];
-    function getRooms(roomNo)
-    {
-        var rooms =  roomNo;
-        if(countRooms<5)
-        {
-            countRooms= countRooms+1;
-            roomSelected.push(roomNo);
+    function getRooms(roomNo) {
+        var rooms = roomNo;
+        if (document.getElementById(roomNo).checked == true) {
+            if (countRooms < 5) {
+                countRooms = countRooms + 1;
+                roomSelected.push(roomNo);
+            }
+            else {
+                alert("Cannot select more than 5 Rooms");
+                document.getElementById(roomNo).checked = false;
+                alert(roomSelected);
+            }
         }
-        else{
-            alert("Cannot select more than 5 Rooms");
-            document.getElementById(roomNo).checked = false;
+        else {
+            roomSelected.splice(roomSelected.indexOf(roomNo), 1);
+            countRooms = countRooms - 1;
         }
     }
-
     function enterRates()
     {
         var html = "<table style='font-size: 18px; width:inherit;  '>";

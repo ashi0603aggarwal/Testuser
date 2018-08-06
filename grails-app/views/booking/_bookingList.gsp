@@ -42,7 +42,9 @@
                     </td>
                 </g:if>
                 <g:else>
-                    Cancelled
+                    <g:if test="${b.bookingStatus == "Cancelled"}">
+                        Cancelled
+                    </g:if>
                 </g:else>
             </tr>
         </g:each>

@@ -25,14 +25,15 @@ th, td { border-radius: 0.20em; border-style: solid; }
                             <g:set var="room" value="${hotelRoomsList.get((10*(ro-1))+(c-1))}"/>
                             <g:set var="disabled" value=""/>
                             <g:set var="checked" value=""/>
-                            <g:if test="${hotelRoomsBooked.contains(room.roomNo)}">
+                            <g:if test="${hotelRoomsBooked.roomNo.contains(room.roomNo)}">
                                 <g:set var="checked" value="checked"/>
+
                             </g:if>
                             <g:elseif test="${room.availability=="No"}">
                                 <g:set var="disabled" value="disabled"/>
                             </g:elseif>
                             <li class="seat">
-                                <input type="checkbox" name="check" ${checked} ${disabled} id="${room.roomNo}" value="${room.roomNo}" />
+                                <input type="checkbox" name="check" ${checked} ${disabled} id="${room.roomNo}" value="${room.roomNo}" onclick="getRooms(${room.roomNo})" />
                                 <label for="${room.roomNo}">${room.roomNo}</label>
                             </li>
                         </g:each>
@@ -53,8 +54,25 @@ th, td { border-radius: 0.20em; border-style: solid; }
             <g:hiddenField name="cash" value="${p.cash}"/>
             <g:hiddenField name="paytm" value="${p.paytm}"/>
             <br/><br/>
-            <g:actionSubmit class="btn btn-success btn-lg" value="Save Changes"  action="editForm" style="margin-left: 45%; font-size: 25px;"/>
 
+            <div class="input-group" style="padding-left: 43%;">
+                <button type="button" class="btn btn-success btn-lg" id="myBtn" onclick="enterRates()">Update Room Rates</button>
+            </div>
+
+       <table style='padding-left: 38%; font-size: 18px; width:inherit;'>
+           <tr><th>Room No</th>
+               <th>Room Rate</th>
+           </tr>
+            <g:each in="${hotelRoomsBooked}" var="hb">
+             <tr>
+                 <td><input type='text' class='roomNo' name='roomNo' value='${hb.roomNo}'  style='border: 0; font-size: 18px;' readonly></td>
+                 <td><input type='text' class='roomRate' name='roomRate' value='${hb.roomRate}'></td>
+            </tr>
+            </g:each>
+        </table>
+            <div id="box"></div>
+            <br/><br/>
+            <g:actionSubmit class="btn btn-success btn-lg" value="Save Changes"  action="editForm" style="margin-left: 45%; font-size: 25px;"/>
         </g:form>
     </ol>
 </div>
@@ -79,4 +97,47 @@ th, td { border-radius: 0.20em; border-style: solid; }
 </table>
 
 </body>
+
+<script>
+    var countRooms = 0;
+    var roomSelected = [];
+    function getRooms(roomNo)
+    {
+        var rooms =  roomNo;
+        if(document.getElementById(roomNo).checked == true)
+        {
+             if(countRooms<5)
+                {
+                    countRooms = countRooms + 1;
+                    roomSelected.push(roomNo);
+                }
+             else{
+                 alert("Cannot select more than 5 Rooms");
+                 document.getElementById(roomNo).checked = false;
+                 alert(roomSelected);
+             }
+
+        }
+        else
+        {
+            roomSelected.splice( roomSelected.indexOf(roomNo), 1 );
+            countRooms = countRooms - 1;
+        }
+
+    }
+
+    function enterRates()
+    {
+        var html="<table style='padding-left: 38%; font-size: 18px; width:inherit; '>";
+        for (var i = 0; i < roomSelected.length; i++) {
+            html+="<tr>";
+            html+="<td><input type='text' class='roomNo' name='roomNo' value='"+roomSelected[i]+"'style='border: 2px; font-size: 18px;' readonly/></td>";
+            html+="<td><input type='text' class='roomRate' name='roomRate'></td>";
+            html+="</tr>";
+        }
+        html+="</table>";
+        document.getElementById("box").innerHTML = html;
+    }
+
+</script>
 </html>

@@ -164,14 +164,13 @@ class HotelRegistrationController {
             }
             hotelRegistrationService.save(hotelRegister1)
             flash.message = "successfully registered"
+            chain(controller:'hotelRegistration',action: 'adminDash')
         } catch (ValidationException e) {
             flash.error = "failed"
             println("In Catch")
-            redirect hotelRegister1.errors, view: '/hotelRegistration/registerHotel'
-            //respond hotelRegister1.errors, view: '/hotelRegistration/registerHotel'
-            return
+            def er = hotelRegister1.errors
+            chain(controller:'hotelRegistration',action: 'registerHotel', model:[er:er])
         }
-        chain(controller:'hotelRegistration',action: 'adminDash')
     }
 
     def delete(Long id) {

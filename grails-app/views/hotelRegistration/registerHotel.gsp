@@ -22,14 +22,7 @@
 
 <div class="container">
     <h3 align="right"><a href="/default/dash" class="btn btn-lg btn-info" role="button">Back</a></h3>
-    <g:hasErrors bean="${this.hotelRegistration}">
-        <ul class="errors" role="alert">
-            <g:eachError bean="${this.hotelRegistration}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>>
-                    <g:message error="${error}"/></li>
-            </g:eachError>
-        </ul>
-    </g:hasErrors>
+  ${er}
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
             <!-- Wizard container -->

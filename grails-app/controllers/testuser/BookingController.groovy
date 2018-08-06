@@ -140,7 +140,7 @@ class BookingController {
             render(view: 'roomSelection', model: [hotelRoomsList: hotelRoomsList, r: r, p: params])
         }
         else {
-                List<HotelRooms> hotelRoomsBooked = booking.roomsBooked
+                List<RoomDetails> hotelRoomsBooked = booking.billGeneration.roomDetails
                 List<HotelRooms> hotelRoomsList = hotelDetails.hotelRooms.findAll()
                 int r = (hotelRoomsList?.size()) / 10
                 render(view: 'roomSelectionEdit', model: [hotelRoomsBooked: hotelRoomsBooked, hotelRoomsList: hotelRoomsList,r: r, p: params])
@@ -270,6 +270,38 @@ class BookingController {
         Date checkInTime = new Date().parse("hh:mm aa",inTime)
         booking1.checkInTime = checkInTime
         booking1.hotelDetails = hotelDetails
+        if (booking1.billGeneration)
+        {
+            if(params.oyo)
+            {
+                String oyo = params.oyo
+                double oyoAdvance = oyo.toDouble()
+                booking1.billGeneration.oyoAdvance = oyoAdvance
+            }
+            else{ booking1.billGeneration.oyoAdvance = 0}
+            if(params.cash)
+            {
+                String cash = params.cash
+                double cashAdvance = cash.toDouble()
+                booking1.billGeneration.cashAdvance = cashAdvance
+            }
+            else{ booking1.billGeneration.cashAdvance = 0}
+            if(params.paytm)
+            {
+                String paytm = params.paytm
+                double paytmAdvance = paytm.toDouble()
+                booking1.billGeneration.paytmAdvance = paytmAdvance
+            }
+            else{ booking1.billGeneration.paytmAdvance = 0}
+
+            List roomNos = params.roomNo.toList()
+            booking1.roomsBooked = roomNos
+            List roomRate = params.roomRate.toList()
+            booking1.billGeneration.roomDetails = roomrates(roomNos,roomRate,params.roomNo)
+
+            booking1.billGeneration.save(flush: true,failOnError : true)
+        }
+
         if(booking1.bookingStatus=="Open")
         {
             List<String> oldRoomsList = booking1.roomsBooked
@@ -295,14 +327,7 @@ class BookingController {
                 hotelRooms.availability = "Yes"
                 hotelRooms.save(flush: true, failOnError: true)
             }
-            booking1.roomsBooked = []
-            List values = request.getParameterValues("check")
-            List<HotelRooms> hotelRoomsList = HotelRooms.findAllByRoomNoInList(values)
-            hotelRoomsList.each {
-                booking1.roomsBooked.add(it.roomNo)
-                it.availability = "No"
-                it.save(flush: true, failOnError: true)
-            }
+
         }
 
         hotelDetails.bookings.add(booking1)
@@ -342,7 +367,7 @@ class BookingController {
         def bookingcount = (hotelDetails.bookings.findAll()).size()
         println(bookingcount)
         params.max=20
-        List<Booking> booking1 = Booking.findAllByHotelDetails((hotelDetails), params)
+        List<Booking> booking1 = Booking.findAllByHotelDetailsAndBookingStatusNotEqual((hotelDetails),"Cancelled", params)
         render(view: 'detailList', model: [booking1:booking1,bookingcount:bookingcount,params:params])
     }
     def pagin(){
@@ -414,11 +439,12 @@ class BookingController {
             }
         }
         else{
-            if (status){
-                println("in status")
-                booking1 = Booking.findAllByHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(hotelDetails,n,ph,status,params)
-                bookingcount=(Booking.findAllByHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(hotelDetails,n,ph,status)).size()
-            }
+           if (status){
+               println("in status")
+               println(status)
+               booking1 = Booking.findAllByHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(hotelDetails, n, ph, status, params)
+               bookingcount = (Booking.findAllByHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(hotelDetails, n, ph, status)).size()
+           }
             else if (name || phNo){
                 println("in ph no and name")
                 booking1 = Booking.findAllByHotelDetailsAndCustomerNameLikeAndCustomerPhNoLike(hotelDetails,n,ph,params)
@@ -488,8 +514,8 @@ class BookingController {
             {
                 Date endDate = new Date().parse("dd/MMM/yyyy", maxDateRange)
                 Date startDate = new Date().parse("dd/MMM/yyyy", minDateRange)
-                booking1 = Booking.findAllByBillGenerationInListAndHotelDetailsAndBookedBy(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate, endDate), hotelDetails, status, params)
-                bookingcount = (Booking.findAllByBillGenerationInListAndHotelDetailsAndBookedBy(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate, endDate), hotelDetails,status)).size()
+                booking1 = Booking.findAllByBillGenerationInListAndHotelDetailsAndBookedByAndBookingStatusNotEqual(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate, endDate), hotelDetails, status,"Cancelled", params)
+                bookingcount = (Booking.findAllByBillGenerationInListAndHotelDetailsAndBookedByAndBookingStatusNotEqual(BillGeneration.findAllByInvoiceDateGreaterThanEqualsAndInvoiceDateLessThanEquals(startDate, endDate), hotelDetails,status,"Cancelled")).size()
             }
             else {
                 Date endDate = new Date().parse("dd/MMM/yyyy", maxDateRange)
@@ -501,12 +527,12 @@ class BookingController {
         else {
             if(status)
             {
-                booking1 = Booking.findAllByHotelDetailsAndBookedBy(hotelDetails,status, params)
-                bookingcount = (Booking.findAllByHotelDetailsAndBookedBy(hotelDetails,status)).size()
+                booking1 = Booking.findAllByHotelDetailsAndBookedByAndBookingStatusNotEqual(hotelDetails,status,"Cancelled", params)
+                bookingcount = (Booking.findAllByHotelDetailsAndBookedByAndBookingStatusNotEqual(hotelDetails,status,"Cancelled")).size()
             }
             else {
-                booking1 = Booking.findAllByHotelDetails(hotelDetails, params)
-                bookingcount = (Booking.findAllByHotelDetails(hotelDetails)).size()
+                booking1 = Booking.findAllByHotelDetailsAndBookingStatusNotEqual(hotelDetails,"Cancelled", params)
+                bookingcount = (Booking.findAllByHotelDetailsAndBookingStatusNotEqual(hotelDetails,"Cancelled")).size()
             }
         }
         /*List<Booking> bookings = []
@@ -559,7 +585,8 @@ class BookingController {
 
     def cancelBooking() {
         User user = (User)springSecurityService.currentUser
-        testuser.HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
+        HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
+        HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
         String id = params.id
         Long bookingId = id.toLong()
         Booking booking = Booking.findById(bookingId)
@@ -568,7 +595,8 @@ class BookingController {
             it.availability = "Yes"
             it.save(flush: true,failOnError : true)
         }
-        booking.bookingStatus="Cancelled";
+        booking.bookingStatus = "Cancelled";
+        println(booking.bookingStatus)
         booking.save(flush: true,failOnError : true)
         guestList();
     }

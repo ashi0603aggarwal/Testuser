@@ -11,10 +11,11 @@
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <asset:stylesheet src="Booking/book.css"></asset:stylesheet>
     <asset:javascript src="Booking/book.js"></asset:javascript>
-    <asset:javascript src="Validate_Js.js"></asset:javascript>B
+    <asset:javascript src="Validate_Js.js"></asset:javascript>
+
     <title></title>
 </head>
 <body>
@@ -120,7 +121,7 @@
                         </div>
                         <div class="wizard-footer">
                             <div class="pull-right">
-                                <g:actionSubmit class="btn btn-next btn-fill btn-danger btn-wd" value="Save Changes"  action="roomSelectionEdit"/>
+                                <g:actionSubmit class="btn-danger btn btn-wd btn-fill" value="Save Changes"  action="roomSelectionEdit"/>
                             </div>
                         </div>
 
