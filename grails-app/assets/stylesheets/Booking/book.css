@@ -733,22 +733,22 @@ output {
     float: none;
     box-shadow: none;
     border-radius: 0;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-control::-moz-placeholder,
 .form-group .form-control::-moz-placeholder {
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-control:-ms-input-placeholder,
 .form-group .form-control:-ms-input-placeholder {
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-control::-webkit-input-placeholder,
 .form-group .form-control::-webkit-input-placeholder {
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-control[readonly], .form-control[disabled], fieldset[disabled] .form-control,
 .form-group .form-control[readonly],
@@ -876,19 +876,19 @@ output {
     font-size: 14px;
     line-height: 1.42857;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-control:-ms-input-placeholder {
     font-size: 14px;
     line-height: 1.42857;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-control::-webkit-input-placeholder {
     font-size: 14px;
     line-height: 1.42857;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 
 .checkbox label,
@@ -897,14 +897,14 @@ label {
     font-size: 14px;
     line-height: 1.42857;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 
 label.control-label {
     font-size: 11px;
     line-height: 1.07143;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
     margin: 16px 0 0 0;
 }
 
@@ -924,19 +924,19 @@ label.control-label {
     font-size: 14px;
     line-height: 1.42857;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-group .form-control:-ms-input-placeholder {
     font-size: 14px;
     line-height: 1.42857;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-group .form-control::-webkit-input-placeholder {
     font-size: 14px;
     line-height: 1.42857;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-group .checkbox label,
 .form-group .radio label,
@@ -944,13 +944,13 @@ label.control-label {
     font-size: 14px;
     line-height: 1.42857;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-group label.control-label {
     font-size: 11px;
     line-height: 1.07143;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
     margin: 16px 0 0 0;
 }
 .form-group .help-block {
@@ -986,19 +986,19 @@ label.control-label {
     font-size: 11px;
     line-height: 1.5;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-group.form-group-sm .form-control:-ms-input-placeholder {
     font-size: 11px;
     line-height: 1.5;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-group.form-group-sm .form-control::-webkit-input-placeholder {
     font-size: 11px;
     line-height: 1.5;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-group.form-group-sm .checkbox label,
 .form-group.form-group-sm .radio label,
@@ -1006,13 +1006,13 @@ label.control-label {
     font-size: 11px;
     line-height: 1.5;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-group.form-group-sm label.control-label {
     font-size: 9px;
     line-height: 1.125;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
     margin: 16px 0 0 0;
 }
 .form-group.form-group-sm .help-block {
@@ -1048,19 +1048,19 @@ label.control-label {
     font-size: 18px;
     line-height: 1.33333;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-group.form-group-lg .form-control:-ms-input-placeholder {
     font-size: 18px;
     line-height: 1.33333;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-group.form-group-lg .form-control::-webkit-input-placeholder {
     font-size: 18px;
     line-height: 1.33333;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-group.form-group-lg .checkbox label,
 .form-group.form-group-lg .radio label,
@@ -1068,13 +1068,13 @@ label.control-label {
     font-size: 18px;
     line-height: 1.33333;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
 }
 .form-group.form-group-lg label.control-label {
     font-size: 14px;
     line-height: 1.0;
     color: #AAAAAA;
-    font-weight: 400;
+    font-weight: 800;
     margin: 16px 0 0 0;
 }
 .form-group.form-group-lg .help-block {
@@ -1163,7 +1163,7 @@ select.form-control[multiple], .form-group.is-focused select.form-control[multip
     padding: 12px 30px;
     margin: 10px 1px;
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0;
     will-change: box-shadow, transform;
@@ -1177,7 +1177,7 @@ select.form-control[multiple], .form-group.is-focused select.form-control[multip
 }
 .btn, .btn:hover, .btn:focus, .btn:active, .btn.active, .btn:active:focus, .btn:active:hover, .btn.active:focus, .btn.active:hover, .open > .btn.dropdown-toggle, .open > .btn.dropdown-toggle:focus, .open > .btn.dropdown-toggle:hover, .btn.btn-default, .btn.btn-default:hover, .btn.btn-default:focus, .btn.btn-default:active, .btn.btn-default.active, .btn.btn-default:active:focus, .btn.btn-default:active:hover, .btn.btn-default.active:focus, .btn.btn-default.active:hover, .open > .btn.btn-default.dropdown-toggle, .open > .btn.btn-default.dropdown-toggle:focus, .open > .btn.btn-default.dropdown-toggle:hover {
     background-color: #999999;
-    color: #FFFFFF;
+    color: black;
 }
 .btn:focus, .btn:active, .btn:hover, .btn.btn-default:focus, .btn.btn-default:active, .btn.btn-default:hover {
     box-shadow: 0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2);
@@ -1353,8 +1353,10 @@ select.form-control[multiple], .form-group.is-focused select.form-control[multip
     font-size: 24px;
 }
 .btn.btn-lg, .btn-group-lg .btn {
-    font-size: 14px;
+    font-size: 18px;
     padding: 18px 36px;
+    color: black;
+    font-weight: bold;
 }
 
 .btn.btn-sm, .btn-group-sm .btn {

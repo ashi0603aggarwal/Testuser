@@ -167,9 +167,9 @@ class HotelRegistrationController {
             chain(controller:'hotelRegistration',action: 'adminDash')
         } catch (ValidationException e) {
             flash.error = "failed"
-            println("In Catch")
             def er = hotelRegister1.errors
-            chain(controller:'hotelRegistration',action: 'registerHotel', model:[er:er])
+            //respond hotelRegistration.errors, view:'registerHotel'
+            chain(action: 'registerHotel', model:[er:er])
         }
     }
 

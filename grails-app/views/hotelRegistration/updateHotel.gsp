@@ -118,7 +118,7 @@
                         </div>
                         <div class="wizard-footer">
                             <div class="pull-right">
-                                <g:actionSubmit class="btn btn-success btn-wd" value="Update" action="updateHotelRegister"/>
+                                <g:actionSubmit class="btn btn-success btn-lg" value="Update" action="updateHotelRegister"/>
                             </div>
                         </div>
 

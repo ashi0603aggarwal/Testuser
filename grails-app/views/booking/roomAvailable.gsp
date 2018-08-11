@@ -40,7 +40,7 @@ th, td { border-radius: 0.20em; border-style: solid; }
     </ol>
 </div>
 <br><br>
-<table border="1">
+<table border="1" style="font-size: 14px;width: 15%;">
     <tr>
         <th>Room Status</th>
         <td>Color</td>

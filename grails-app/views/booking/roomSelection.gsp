@@ -3,16 +3,20 @@
 <html>
 <head>
     <asset:stylesheet src="Booking/roomSelection.css"/>
+    <asset:stylesheet src="Booking/book.css"/>
     <title></title>
 </head>
 <style>
 table { font-size:65%; width: 10%; border-collapse: separate; border-spacing: 1px;}
 th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
 th, td { border-radius: 0.20em; border-style: solid; }
-
+.btn.btn-lg, .btn-group-lg .btn {
+    font-size: 18px;
+    padding: 18px 36px;
+}
 </style>
 <body>
-<div>
+<div style="background: white; height: inherit; width: inherit">
     <div class="cockpit">
         <h1>Room availability </h1>
     </div>
@@ -30,7 +34,7 @@ th, td { border-radius: 0.20em; border-style: solid; }
                             </g:if>
                             <li class="seat">
                                 <input type="checkbox" name="check" ${disabled} id="${room.roomNo}" value="${room.roomNo}" onclick="getRooms(${room.roomNo})"/>
-                                <label for="${room.roomNo}">${room.roomNo}</label>
+                                <label style="color: black" for="${room.roomNo}">${room.roomNo}</label>
 
                             </li>
                         </g:each>
@@ -54,17 +58,18 @@ th, td { border-radius: 0.20em; border-style: solid; }
 
 
             <div class="input-group" style="padding-left: 43%;">
-              <button type="button" class="btn btn-success btn-lg" id="myBtn" onclick="enterRates()">Enter Room Rates</button>
+              <button type="button" class="btn btn-default btn-lg btn-fill" id="myBtn" onclick="enterRates()">Enter Room Rates</button>
             </div>
             <div id="box" style="padding-left: 38%; width: inherit"></div>
 
             <br/><br/>
+
             <g:actionSubmit value="Submit" class="btn btn-success btn-lg" action="submitForm" style="margin-left: 45%;" />
 
         </g:form>
     </ol>
 <br><br>
-<table border="1">
+<table border="1" style="font-size: 14px;width: 15%;">
     <tr>
         <th>Room Status</th>
         <td>Color</td>

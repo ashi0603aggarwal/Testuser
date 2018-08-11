@@ -11,13 +11,13 @@
     <asset:javascript src="Booking/guestList_js.js"></asset:javascript>
     <g:javascript library="jquery"/>
 </head>
-<body>
+<body style="font-size: 18px;">
 <div id="demo">
     <h1>Booking Details</h1>
     <h3 align="right"><a href="/default/dash" class="btn btn-lg" role="button">Dashboard</a></h3>
     <g:render template="searchBooking" />
 
-    <div id="hotelbookings">
+    <div id="hotelbookings" >
         <g:render template="bookingList" model="['booking1':booking1,bookingcount:bookingcount]" />
     </div>
 </div>

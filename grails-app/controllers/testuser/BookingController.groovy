@@ -442,23 +442,23 @@ class BookingController {
            if (status){
                println("in status")
                println(status)
-               booking1 = Booking.findAllByHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(hotelDetails, n, ph, status, params)
-               bookingcount = (Booking.findAllByHotelDetailsAndCustomerNameIlikeAndCustomerPhNoIlikeAndBookingStatus(hotelDetails, n, ph, status)).size()
+               booking1 = Booking.findAllByHotelDetailsAndBookingStatusAndCustomerNameLikeAndCustomerPhNoLike(hotelDetails,status,n,ph, params)
+               bookingcount = (Booking.findAllByHotelDetailsAndBookingStatusAndCustomerNameLikeAndCustomerPhNoLike(hotelDetails,status,n,ph)).size()
            }
             else if (name || phNo){
                 println("in ph no and name")
                 booking1 = Booking.findAllByHotelDetailsAndCustomerNameLikeAndCustomerPhNoLike(hotelDetails,n,ph,params)
-                bookingcount= (Booking.findAllByHotelDetails(hotelDetails,n,ph)).size()
+                bookingcount= (Booking.findAllByHotelDetailsAndCustomerNameLikeAndCustomerPhNoLike(hotelDetails,n,ph)).size()
             }
                 else{
                 println("none")
                 booking1 = Booking.findAllByHotelDetailsAndBookingStatusNotEqual(hotelDetails,"Cancelled",params)
-                bookingcount= (Booking.findAllByHotelDetails(hotelDetails)).size()
+                bookingcount= (Booking.findAllByHotelDetailsAndBookingStatusNotEqual(hotelDetails,"Cancelled")).size()
             }
         }
-        println(bookingcount)
+        /*println(bookingcount)
         println(booking1.size())
-        println(params.max)
+        println(params.max)*/
         String htmlContent = g.render([template:"bookingList", model:[booking1:booking1,bookingcount:bookingcount]])
         Map responseData = [htmlContent:htmlContent]
         render(responseData as JSON)

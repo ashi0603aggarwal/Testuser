@@ -21,7 +21,12 @@
 <h3 align="right"><a href="/default/dash" class="btn btn-lg" role="button">Dashboard</a></h3>
 <header>
     <g:if test="${booking?.billGeneration?.total>999}">
-        <h2 id="billHeading">Tax Invoice</h2>
+        <g:if test="${booking?.billGeneration?.gstTotal>0}">
+            <h2 id="billHeading">Tax Invoice</h2>
+        </g:if>
+        <g:else>
+            <h2 id="billHeading">Bill Of Supply</h2>
+        </g:else>
     </g:if>
     <g:else>
         <h2 id="billHeading">Bill Of Supply</h2>

@@ -8,18 +8,15 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <asset:stylesheet src="Booking/book.css"></asset:stylesheet>
     <asset:javascript src="Booking/book.js"></asset:javascript>
     <asset:javascript src="Validate_Js.js"></asset:javascript>
-
     <title></title>
 </head>
 <body>
-
 <div class="container">
     <h3 align="right"><a href="/default/dash" class="btn btn-lg btn-info" role="button">Back</a></h3>
     <div class="row">
@@ -29,7 +26,6 @@
                 <div class="card wizard-card" data-color="red" id="wizard">
                     <g:form action="roomSelection">
                         <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
-
                         <div class="wizard-header">
                             <h3 class="wizard-title">
                                 Book a Room
@@ -112,14 +108,14 @@
                                 </div>
                                 <br>
                                 <div class="input-group">
-                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;<button type="button" class="btn btn-default btn-wd" id="myBtn" onclick="paymentFunction()">Payment</button>
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;<button type="button" class="btn btn-default btn-lg" id="myBtn" onclick="paymentFunction()">Payment</button>
                                 </div>
                             </div>
                         </div>
 
                         <div class="wizard-footer">
                             <div class="pull-right">
-                                <g:actionSubmit class="btn btn-fill btn-danger btn-wd" value="Next" action="roomSelection" />
+                                <g:actionSubmit class="btn btn-danger btn-lg" value="Next" action="roomSelection"/>
                             </div>
                         </div>
 

@@ -2,7 +2,7 @@
     <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
 <div class="table-responsive-vertical shadow-z-1">
     <!-- Table starts here -->
-    <table id="table" class="table table-hover table-mc-light-blue" style="font-size: 15px">
+    <table id="table" class="table table-hover table-mc-light-blue" style="font-size: 16px;">
         <thead>
         <tr>
             <th>S No</th>

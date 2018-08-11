@@ -3,15 +3,20 @@
 <html>
 <head>
     <asset:stylesheet src="Booking/roomSelection.css"/>
+    <asset:stylesheet src="Booking/book.css"/>
     <title></title>
 </head>
 <style>
 table { font-size:65%; width: 10%; border-collapse: separate; border-spacing: 1px;}
 th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
 th, td { border-radius: 0.20em; border-style: solid; }
+.btn.btn-lg, .btn {
+    font-size: 18px;
+}
 </style>
 <body>
-<div >
+<div style="background: white; height: inherit; width: inherit">
+
     <div class="cockpit">
         <h1>Room availability </h1>
     </div>
@@ -34,7 +39,7 @@ th, td { border-radius: 0.20em; border-style: solid; }
                             </g:elseif>
                             <li class="seat">
                                 <input type="checkbox" name="check" ${checked} ${disabled} id="${room.roomNo}" value="${room.roomNo}" onclick="getRooms(${room.roomNo})" />
-                                <label for="${room.roomNo}">${room.roomNo}</label>
+                                <label style="color: black" for="${room.roomNo}">${room.roomNo}</label>
                             </li>
                         </g:each>
                     </ol>
@@ -56,10 +61,10 @@ th, td { border-radius: 0.20em; border-style: solid; }
             <br/><br/>
 
             <div class="input-group" style="padding-left: 43%;">
-                <button type="button" class="btn btn-success btn-lg" id="myBtn" onclick="enterRates()">Update Room Rates</button>
+                <button type="button" class="btn btn-lg" style="font-size: 18px;" id="myBtn" onclick="enterRates()">Update Room & Rates</button>
             </div>
 
-       <table style='padding-left: 38%; font-size: 18px; width:inherit;'>
+       <table style='padding-left: 38%; font-size: 15px; width:inherit;'>
            <tr><th>Room No</th>
                <th>Room Rate</th>
            </tr>
@@ -72,12 +77,12 @@ th, td { border-radius: 0.20em; border-style: solid; }
         </table>
             <div id="box"></div>
             <br/><br/>
-            <g:actionSubmit class="btn btn-success btn-lg" value="Save Changes"  action="editForm" style="margin-left: 45%; font-size: 25px;"/>
+            <g:actionSubmit class="btn btn-success btn-lg" value="Save Changes"  action="editForm" style="margin-left: 45%; "/>
         </g:form>
     </ol>
-</div>
+
 <br><br>
-<table border="1">
+<table border="1" style="font-size: 14px; width: 15%";>
     <tr>
         <th>Room Status</th>
         <td>Color</td>
@@ -95,7 +100,7 @@ th, td { border-radius: 0.20em; border-style: solid; }
         <td bgcolor="#adff2f"></td>
     </tr>
 </table>
-
+</div>
 </body>
 
 <script>

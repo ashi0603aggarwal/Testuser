@@ -121,7 +121,7 @@
                         </div>
                         <div class="wizard-footer">
                             <div class="pull-right">
-                                <g:actionSubmit class="btn-danger btn btn-wd btn-fill" value="Save Changes"  action="roomSelectionEdit"/>
+                                <g:actionSubmit class="btn-danger btn btn-lg btn-fill" value="Save & Next"  action="roomSelectionEdit"/>
                             </div>
                         </div>
 
