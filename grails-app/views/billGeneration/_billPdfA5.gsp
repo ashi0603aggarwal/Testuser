@@ -37,11 +37,11 @@
     /* table */
 
     table { font-size: 30%; table-layout: inherit; width: 100%; }
-    table { border-collapse: separate; border-spacing: 1px; }
-    th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
+    table {border-collapse: separate;  border-spacing: 0px;}
+    th, td { border-width: 0.5px; padding: 0.5em; position: relative; text-align: left; }
     th, td { border-radius: 0.25em; border-style: solid; }
-    th { background: #EEE; border-color: #BBB; }
-    td { border-color: #DDD; }
+    th { background: #EEE; border-color: black; }
+    td { border-color: black; }
     tr th span { font-weight: bold; font-size: 10px; !important;}
 
     /* page */
@@ -148,37 +148,37 @@
         <div style="padding-right: 0; ">
             <table>
                 <tr>
-                    <th width="15%"><span>Guest Name</span></th>
-                    <td width="85%" colspan="5"><span>${booking.customerName}</span></td>
+                    <th width="14%"><span>Guest Name</span></th>
+                    <td width="86%" colspan="5"><span>${booking.customerName}</span></td>
                 </tr>
-                        <tr>
-                            <th width="15%"><span>Address</span></th>
-                            <td width="48%"><span>${booking.customerAddress}</span></td>
-                            <th width="14%"><span>Invoice No</span></th>
-                            <td colspan="3" width="20%"><span>${booking.billGeneration.billNo}</span></td>
-                        </tr>
-                        <tr>
-                            <th width="15%"><span>Phone No</span></th>
-                            <td width="48%"><span >${booking.customerPhNo}</span></td>
-                            <th width="14%"><span>Invoice Date</span></th>
-                            <td colspan="3" width="20%"><span><g:formatDate format="dd/MM/yyyy" date="${booking.billGeneration.invoiceDate}"></g:formatDate></span></td>
-                        </tr>
-                        <tr>
-                            <th width="15%"><span>GST</span></th>
-                            <td width="46%"><span >${booking?.billGeneration?.customerGst}</span></td>
-                            <th width="15%"><span>Check In Date</span></th>
-                            <td width="8%"><span><g:formatDate format="dd/MM/yyyy" date="${booking.checkInDate}"></g:formatDate></span></td>
-                            <th width="3%"><span>Time</span></th>
-                            <td width="8%"><span><g:formatDate format="HH:mm aa" date="${booking.checkInTime}"/></span></td>
-                        </tr>
-                        <tr>
-                            <th><span>Others</span></th>
-                            <td><span></span></td>
-                            <th><span>Check Out Date</span></th>
-                            <td><span><g:formatDate format="dd/MM/yyyy" date="${booking.checkOutDate}"></g:formatDate></span></td>
-                            <th><span> Time</span></th>
-                            <td><span><g:formatDate format="HH:mm aa" date="${booking.checkOutTime}"/></span></td>
-                        </tr>
+                <tr>
+                    <th width="14%"><span>Address</span></th>
+                    <td width="46%"><span>${booking.customerAddress}</span></td>
+                    <th width="14%"><span>Invoice No</span></th>
+                    <td colspan="3" width="20%"><span>${booking.billGeneration.billNo}</span></td>
+                </tr>
+                <tr>
+                    <th width="14%"><span>Phone No</span></th>
+                    <td width="46%"><span >${booking.customerPhNo}</span></td>
+                    <th width="14%"><span>Invoice Date</span></th>
+                    <td colspan="3" width="20%"><span><g:formatDate format="dd/MM/yyyy" date="${booking.billGeneration.invoiceDate}"></g:formatDate></span></td>
+                </tr>
+                <tr>
+                    <th width="14%"><span>GST</span></th>
+                    <td width="46%"><span >${booking?.billGeneration?.customerGst}</span></td>
+                    <th width="14%"><span>Check In Date</span></th>
+                    <td width="8%"><span><g:formatDate format="dd/MM/yyyy" date="${booking.checkInDate}"></g:formatDate></span></td>
+                    <th width="4%"><span>Time</span></th>
+                    <td width="8%"><span><g:formatDate format="HH:mm aa" date="${booking.checkInTime}"/></span></td>
+                </tr>
+                <tr>
+                    <th width="14%"><span>Others</span></th>
+                    <td width="46%"><span></span></td>
+                    <th width="14%"><span>Check Out Date</span></th>
+                    <td width="8%"><span><g:formatDate format="dd/MM/yyyy" date="${booking.checkOutDate}"></g:formatDate></span></td>
+                    <th width="4%"><span> Time</span></th>
+                    <td width="8%"><span><g:formatDate format="HH:mm aa" date="${booking.checkOutTime}"/></span></td>
+                </tr>
                     </table>
                 </div>
             <table class="inventory" style="padding-bottom: 0px">
