@@ -25,11 +25,10 @@
                 <td data-title="CheckIn Date"><g:formatDate format="dd/MM/yyyy" date="${b.checkInDate}"/></td>
                 <td data-title="CheckOut Date"><g:formatDate format="dd/MM/yyyy" date="${b.checkOutDate}"/></td>
                 <td data-title="Status">${b.bookingStatus}</td>
-                <td data-title="Booking Details"><g:link controller="booking" action="viewBooking" id="${b.id}">Booking</g:link></td>
+                <td data-title="Booking Details"><g:link controller="booking" action="viewBooking" id="${b.id}">View/Edit Booking</g:link></td>
 
                 <g:if test="${b.bookingStatus == "Open"}">
                     <td data-title="Generate Bill/Checkout">
-                         &nbsp;<g:link action="cancelBooking" id="${b.id}">Cancel Booking</g:link>
                          &nbsp;<g:link action="checkOut" id="${b.id}">Checkout</g:link>
                     </td>
                 </g:if>

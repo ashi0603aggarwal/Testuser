@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <asset:stylesheet src="d.css"></asset:stylesheet>
     <asset:stylesheet src="Booking/book.css"></asset:stylesheet>
+    <asset:javascript src="d.js"></asset:javascript>
     <asset:javascript src="Validate_Js.js"></asset:javascript>
     <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
 </head>

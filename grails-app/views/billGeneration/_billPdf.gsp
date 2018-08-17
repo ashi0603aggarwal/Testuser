@@ -158,7 +158,7 @@
         &nbsp; &nbsp; &nbsp; &nbsp;
         <span><img alt="logo" src="data:image/png;base64,${hotelDetails.logo.encodeBase64()}"/></span>
         <div style="padding-right: 0; padding-top: 2px;" >
-            <table >
+            <table>
                 <tr>
                     <th width="14%"><span>Guest Name</span></th>
                     <td width="86%" colspan="5"><span>${booking.customerName}</span></td>
