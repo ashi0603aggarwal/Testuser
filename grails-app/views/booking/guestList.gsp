@@ -17,7 +17,7 @@
     <h3 align="right"><a href="/default/dash" class="btn btn-lg" role="button">Dashboard</a></h3>
     <g:render template="searchBooking" />
 
-    <div id="hotelbookings" >
+    <div id="hotelbookings" style="width:110%">
         <g:render template="bookingList" model="['booking1':booking1,bookingcount:bookingcount]" />
     </div>
 </div>

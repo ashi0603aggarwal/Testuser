@@ -147,7 +147,7 @@
             <h2 id="billHeading">Bill Of Supply</h2>
         </g:else>
         <address>
-            <p style="font-weight: bold; font-size: 30px; padding-top: inherit">${hr.hotelName}</p>
+            <a href="https://invoice-app.scalingo.io/default/dash"><p style="font-weight: bold; font-size: 30px; padding-top: inherit">${hr.hotelName}</p></a>
             <p>Address: ${hr.address}</p>
             <p>Phone No: 9890989000</p>
             <p>GST No: ${hr.gstin}</p>
