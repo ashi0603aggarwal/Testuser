@@ -135,17 +135,7 @@
 <body class="bg-print">
 <div class="sub-bill1">
     <header>
-        <g:if test="${booking?.billGeneration?.total>999}">
-            <g:if test="${booking?.billGeneration?.gstTotal>0}">
-                <h2 id="billHeading">Tax Invoice</h2>
-            </g:if>
-            <g:else>
-                <h2 id="billHeading">Bill Of Supply</h2>
-            </g:else>
-        </g:if>
-        <g:else>
-            <h2 id="billHeading">Bill Of Supply</h2>
-        </g:else>
+        <h2>Tax Invoice</h2>
         <address>
             <a href="https://invoice-app.scalingo.io/default/dash"><p style="font-weight: bold; font-size: 30px; padding-top: inherit">${hr.hotelName}</p></a>
             <p>Address: ${hr.address}</p>

@@ -67,11 +67,13 @@ th, td { border-radius: 0.20em; border-style: solid; }
        <table style='padding-left: 38%; font-size: 15px; width:inherit;'>
            <tr><th>Room No</th>
                <th>Room Rate</th>
+               <th>No Of Person</th>
            </tr>
             <g:each in="${hotelRoomsBooked}" var="hb">
              <tr>
                  <td><input type='text' class='roomNo' name='roomNo' value='${hb.roomNo}'  style='border: 0; font-size: 18px;' readonly></td>
                  <td><input type='text' class='roomRate' name='roomRate' value='${hb.roomRate}'></td>
+                 <td><input type='text' class='noOfPerson' name='noOfPerson' value='${hb.noOfPerson}'></td>
             </tr>
             </g:each>
         </table>
@@ -138,6 +140,7 @@ th, td { border-radius: 0.20em; border-style: solid; }
             html+="<tr>";
             html+="<td><input type='text' class='roomNo' name='roomNo' value='"+roomSelected[i]+"'style='border: 2px; font-size: 18px;' readonly/></td>";
             html+="<td><input type='text' class='roomRate' name='roomRate'></td>";
+            html+="<td><input type='text' class='noOfPerson' name='noOfPerson'></td>";
             html+="</tr>";
         }
         html+="</table>";

@@ -47,9 +47,7 @@ th, td { border-radius: 0.20em; border-style: solid; }
             <g:hiddenField name="customerPhNo" value="${p.customerPhNo}"/>
             <g:hiddenField name="checkInDate" value="${p.checkInDate}"/>
             <g:hiddenField name="checkInTime" value="${p.checkInTime}"/>
-            <g:hiddenField name="noOfPerson" value="${p.noOfPerson}"/>
             <g:hiddenField name="bookedBy" value="${p.bookedBy}"/>
-            <g:hiddenField name="blockedBy" value="${p.blockedBy}"/>
             <g:hiddenField name="oyo" value="${p.oyo}"/>
             <g:hiddenField name="cash" value="${p.cash}"/>
             <g:hiddenField name="paytm" value="${p.paytm}"/>
@@ -116,11 +114,13 @@ th, td { border-radius: 0.20em; border-style: solid; }
         html+="<tr>";
         html+="<th>"+"Room No"+"</th>";
         html+="<th>"+"Room Rate"+"</th>";
+        html+="<th>"+"No Of Person"+"</th>";
         html+="</tr>";
         for (var i = 0; i < roomSelected.length; i++) {
             html+="<tr>";
             html+="<td>"+"<input type='text' class='roomNo' name='roomNo' value='"+roomSelected[i]+"'  style='border: 0; font-size: 18px;' readonly></td>";
             html+="<td><input type='text' class='roomRate' name='roomRate'></td>";
+            html+="<td><input type='text' class='noOfPerson' name='noOfPerson'></td>";
             html+="</tr>";
         }
         html+="</table>";

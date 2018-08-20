@@ -5,6 +5,7 @@ import Testuser.RoomDetails
 class BillGeneration {
 
     String billNo
+    String invoiceNo
     String balPaymentBy
     String customerGst
     Date invoiceDate
@@ -24,7 +25,8 @@ class BillGeneration {
 
     static constraints = {
         invoiceDate(nullable: true,null:true,blank: true)
-        billNo(nullable: true,null:true,blank: true, unique: true)
+        invoiceNo(nullable: true,null:true,blank: true, unique: true)
+        billNo(nullable: true,null:true,blank: true)
         customerGst(nullable: true,null:true,blank: true)
         otherCharges(nullable: true, null:true, blank: true)
         roomDetails(nullable: true,null:true,blank: true)

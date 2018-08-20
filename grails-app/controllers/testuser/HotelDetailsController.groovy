@@ -165,7 +165,6 @@ class HotelDetailsController {
                     hotelRooms.availability=data.availability
                     hotelRooms.save(flush: true,failOnError : true)
                     hotelDetails1.hotelRooms.add(hotelRooms)
-                    //Subscriber.findByEmail(v.email)?: new Subscriber(email:v.email,fullname:v.fullname).save flush:true, failOnError:true
                 }
             }
 

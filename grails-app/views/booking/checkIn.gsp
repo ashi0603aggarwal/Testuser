@@ -74,15 +74,6 @@
                                         <input name="customerAddress" title="customerAddress" type="text" id="customerAddress" class="form-control">
                                     </div>
                                 </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="material-icons">person_add</i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">No. Of Person</label>
-                                        <input name="noOfPerson" title="noOfPerson" type="text" id="noOfPerson" class="form-control">
-                                    </div>
-                                </div>
                             </div>
                             <div class="col-sm-6">
 

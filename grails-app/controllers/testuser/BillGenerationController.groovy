@@ -44,7 +44,7 @@ class BillGenerationController {
         String billId = params.billId
         Long id = billId.toLong()
         testuser.BillGeneration billGeneration = BillGeneration.findById(id)
-        billGeneration.billNo = params.billNo
+        //billGeneration.billNo = params.billNo
         String inDate = params.invoiceDate
         Date invoiceDate = new Date().parse("dd/MMM/yyyy",inDate)
         billGeneration.invoiceDate = invoiceDate
@@ -68,6 +68,7 @@ class BillGenerationController {
         double balPaymentAmt = balPayment.toDouble()
         billGeneration.balPaymentAmt=balPaymentAmt
         billGeneration.balPaymentBy = params.balPaymentBy
+        billGeneration.invoiceNo = params.billNo
 
         billGeneration.save(flush: true,failOnError : true)
         Booking booking = Booking.findByBillGeneration(billGeneration)

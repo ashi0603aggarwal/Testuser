@@ -78,15 +78,15 @@
                                         <input name="customerAddress" title="customerAddress" type="text" id="customerAddress" class="form-control" value="${booking.customerAddress}">
                                     </div>
                                 </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="material-icons">person_add</i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">No. Of Person</label>
-                                        <input name="noOfPerson" title="noOfPerson" type="text" id="noOfPerson" class="form-control" value="${booking.noOfPerson}">
-                                    </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons"></i>
+                            </span>
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Room No</label>
+                                    <input name="roomsBooked" title="roomsBooked"  id="roomsBooked" class="form-control" value="${booking.roomsBooked}">
                                 </div>
+                        </div>
                             </div>
                             <div class="col-sm-6">
 
@@ -112,10 +112,7 @@
                                 <div class="input-group">
                                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;<button type="button" class="btn btn-default btn-wd" id="myBtn" onclick="paymentFunction()">Payment</button>
                                 </div>
-                                <div class="form-group label-floating">
-                                    <label class="control-label">Room No</label>
-                                    <input name="roomsBooked" title="roomsBooked"  id="roomsBooked" class="form-control" value="${booking.roomsBooked}">
-                                </div>
+
                                 <g:hiddenField name="bookingId" value="${booking.id}"/>
                             </div>
                         </div>

@@ -14,7 +14,6 @@ import static org.springframework.http.HttpStatus.*
 class BookingController {
     Testuser.BookingService bookingService
     SpringSecurityService springSecurityService
-
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -147,7 +146,7 @@ class BookingController {
 
         }
     }
-    def roomrates(roomNos,roomRate,roomNo)
+    def roomrates(roomNos,roomRate,roomNo,noOfPerson)
     {
         BillGeneration billGeneration= new BillGeneration()
         if(roomNo.class.isArray()) {
@@ -156,6 +155,7 @@ class BookingController {
                 RoomDetails roomDetails = new RoomDetails()
                 roomDetails.roomNo = roomNos.get(index)
                 roomDetails.roomRate = roomRate.get(index)
+                roomDetails.noOfPerson = noOfPerson.get(index)
                 rms.add(roomDetails)
                 billGeneration.roomDetails = rms
             }
@@ -166,6 +166,7 @@ class BookingController {
             RoomDetails roomDetails = new RoomDetails()
             roomDetails.roomNo = params.roomNo
             roomDetails.roomRate = params.roomRate
+            roomDetails.noOfPerson = params.noOfPerson
             rms.add(roomDetails)
             billGeneration.roomDetails = rms
         }
@@ -178,8 +179,8 @@ class BookingController {
         HotelRegistration hr =  HotelRegistration.findByEmail(user.username)
         HotelDetails hotelDetails = HotelDetails.findByHotelRegistration(hr)
         Booking booking1 = new Booking(customerName: params.customerName,customerAddress: params.customerAddress,customerEmail:params.customerEmail,customerPhNo: params.customerPhNo,bookedBy: params.bookedBy )
-        String noOfPerson = params.noOfPerson
-        booking1.noOfPerson = noOfPerson?.toInteger()
+        //String noOfPerson = params.noOfPerson
+        //booking1.noOfPerson = noOfPerson?.toInteger()
         String inDate = params.checkInDate
         Date checkInDate = new Date().parse("dd/MMM/yyyy",inDate)
         booking1.checkInDate = checkInDate
@@ -195,7 +196,11 @@ class BookingController {
         if (!booking1.billGeneration)
         {
             BillGeneration billGeneration = new BillGeneration()
-            billGeneration.billNo = billGeneration.id
+            //billGeneration.billNo = billGeneration.id
+            hotelDetails.counter= hotelDetails.counter+1
+            println("Counter")
+            println(hotelDetails.counter)
+            billGeneration.billNo = hotelDetails.counter
             if(params.oyo)
             {
                 String oyo = params.oyo
@@ -220,29 +225,30 @@ class BookingController {
 
             List roomNos = params.roomNo.toList()
             List roomRate = params.roomRate.toList()
-            billGeneration.roomDetails = roomrates(roomNos,roomRate,params.roomNo)
+            List noOfPerson = params.noOfPerson.toList()
+            billGeneration.roomDetails = roomrates(roomNos,roomRate,params.roomNo,noOfPerson)
 
             billGeneration.save(flush: true,failOnError : true)
             booking1.billGeneration = billGeneration
         }
 
-        hotelDetails.bookings.add(booking1)
-        hotelDetails.save(flush: true,failOnError : true)
 
         List values = request.getParameterValues("check")
-        List<HotelRooms> hotelRoomsList = HotelRooms.findAllByRoomNoInList(values)
-        hotelRoomsList.each {
-            booking1.roomsBooked.add(it.roomNo)
-            if(it.availability== "No")
-            {
-                println ("Rooms not available")
-            }
-            else {
-                it.availability = "No"
-                it.save(flush: true, failOnError: true)
+        List<HotelRooms> hotelRoomsList = hotelDetails.hotelRooms.findAll()
+        //List<HotelRooms> hotelRoomsList = HotelRooms.findAllByRoomNoInList(values)
+        hotelDetails.hotelRooms.each {
+            if(values.contains(it.roomNo)) {
+                booking1.roomsBooked.add(it.roomNo)
+                if (it.availability == "No") {
+                    println("Rooms not available")
+                } else {
+                    it.availability = "No"
+                    it.save(flush: true, failOnError: true)
+                }
             }
         }
-
+        hotelDetails.bookings.add(booking1)
+        hotelDetails.save(flush: true,failOnError : true)
         flash.message = "successfully booked"
        // render (view:'/billGeneration/roomrates', model: [booking1:booking1,hr:hr,hotelDetails:hotelDetails,checkIn:checkInDate,itime: checkInTime])
          chain(controller:'default',action: 'dash')
@@ -261,8 +267,8 @@ class BookingController {
         booking1.customerEmail = params.customerEmail
         booking1.customerPhNo = params.customerPhNo
         booking1.bookedBy = params.bookedBy
-        String noOfPerson = params.noOfPerson
-        booking1.noOfPerson = noOfPerson?.toInteger()
+       /* String noOfPerson = params.noOfPerson
+        booking1.noOfPerson = noOfPerson?.toInteger()*/
         String inDate = params.checkInDate
         Date checkInDate = new Date().parse("dd/MMM/yyyy",inDate)
         booking1.checkInDate = checkInDate
@@ -297,39 +303,51 @@ class BookingController {
             List roomNos = params.roomNo.toList()
             booking1.roomsBooked = roomNos
             List roomRate = params.roomRate.toList()
-            booking1.billGeneration.roomDetails = roomrates(roomNos,roomRate,params.roomNo)
-
+            List noOfPerson = params.noOfPerson.toList()
+            booking1.billGeneration.roomDetails = roomrates(roomNos,roomRate,params.roomNo,noOfPerson)
             booking1.billGeneration.save(flush: true,failOnError : true)
         }
 
         if(booking1.bookingStatus=="Open")
         {
             List<String> oldRoomsList = booking1.roomsBooked
-            oldRoomsList.each { it ->
-                HotelRooms hotelRooms = HotelRooms.findByRoomNo(it)
-                hotelRooms.availability = "Yes"
-                hotelRooms.save(flush: true, failOnError: true)
+            hotelDetails.hotelRooms.each {
+                if(oldRoomsList.contains(it.roomNo)) {
+                    it.availability = "Yes"
+                    it.save(flush: true, failOnError: true)
+                }
             }
             booking1.roomsBooked = []
+           /* oldRoomsList.each { it ->
+                HotelRooms hotelRooms = hotelDetails.hotelRooms.find(it)
+                hotelRooms.availability = "Yes"
+                hotelRooms.save(flush: true, failOnError: true)
+            }*/
             List values = request.getParameterValues("check")
-            List<HotelRooms> hotelRoomsList = HotelRooms.findAllByRoomNoInList(values)
-            hotelRoomsList.each {
-                booking1.roomsBooked.add(it.roomNo)
-                it.availability = "No"
-                it.save(flush: true, failOnError: true)
+            //List<HotelRooms> hotelRoomsList = hotelDetails.hotelRooms.findAll()
+            hotelDetails.hotelRooms.each {
+                if(values.contains(it.roomNo)) {
+                    booking1.roomsBooked.add(it.roomNo)
+                    it.availability = "No"
+                    it.save(flush: true, failOnError: true)
+                }
             }
         }
         else
         {
             List<String> oldRoomsList = booking1.roomsBooked
-            oldRoomsList.each { it ->
-                HotelRooms hotelRooms = HotelRooms.findByRoomNo(it)
+           /* oldRoomsList.each { it ->
+                HotelRooms hotelRooms = hotelDetails.hotelRooms.findByRoomNo(it)
                 hotelRooms.availability = "Yes"
                 hotelRooms.save(flush: true, failOnError: true)
+            }*/
+            hotelDetails.hotelRooms.each {
+                if(oldRoomsList.contains(it.roomNo)) {
+                    it.availability = "Yes"
+                    it.save(flush: true, failOnError: true)
+                }
             }
-
         }
-
         hotelDetails.bookings.add(booking1)
         hotelDetails.save(flush: true,failOnError : true)
         flash.message = "successfully booked"

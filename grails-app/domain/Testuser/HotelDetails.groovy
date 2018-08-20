@@ -12,6 +12,7 @@ class HotelDetails {
     static hasMany = [bookings:Booking, hotelRooms:HotelRooms]
     List bookings = []
     List hotelRooms = []
+    int counter=0
 
     static constraints = {
         logo nullable: true, maxSize: 1000000

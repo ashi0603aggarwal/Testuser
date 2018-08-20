@@ -19,7 +19,7 @@
 
         <g:each in="${booking1}" var="b" >
             <tr>
-                <td data-title="test.Booking Id">${b.id}</td>
+                <td data-title="test.Booking Id">${b.billGeneration.billNo}</td>
                 <td data-title="Name">${b.customerName}</td>
                 <td data-title="Contact No">${b.customerPhNo}</td>
                 <td data-title="CheckIn Date"><g:formatDate format="dd/MM/yyyy" date="${b.checkInDate}"/></td>
