@@ -5,7 +5,7 @@
     <table id="table" class="table table-hover table-mc-light-blue" style="font-size: 16px;">
         <thead>
         <tr>
-            <th>S No</th>
+            <th>S.No</th>
             <th>Name</th>
             <th>Contact No</th>
             <th>CheckIn Date</th>
@@ -19,7 +19,7 @@
 
         <g:each in="${booking1}" var="b" >
             <tr>
-                <td data-title="test.Booking Id">${b.billGeneration.billNo}</td>
+                <td data-title="test.Booking Id">${b.billGeneration.billNo.toInteger()}</td>
                 <td data-title="Name">${b.customerName}</td>
                 <td data-title="Contact No">${b.customerPhNo}</td>
                 <td data-title="CheckIn Date"><g:formatDate format="dd/MM/yyyy" date="${b.checkInDate}"/></td>

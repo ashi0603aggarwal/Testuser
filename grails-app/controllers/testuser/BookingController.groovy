@@ -197,10 +197,28 @@ class BookingController {
         {
             BillGeneration billGeneration = new BillGeneration()
             //billGeneration.billNo = billGeneration.id
+            /*Bill Counter*/
             hotelDetails.counter= hotelDetails.counter+1
             println("Counter")
             println(hotelDetails.counter)
             billGeneration.billNo = hotelDetails.counter
+            if(billGeneration.billNo.size()==1)
+            {
+                billGeneration.billNo = "000"+hotelDetails.counter
+            }
+            else if(billGeneration.billNo.size()==2)
+            {
+                billGeneration.billNo = "00"+hotelDetails.counter
+            }
+            else if(billGeneration.billNo.size()==3)
+            {
+                billGeneration.billNo = "0"+hotelDetails.counter
+            }
+            else
+            {
+                billGeneration.billNo = hotelDetails.counter
+            }
+            /*Advance Payments*/
             if(params.oyo)
             {
                 String oyo = params.oyo

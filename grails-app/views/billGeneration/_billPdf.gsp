@@ -157,7 +157,7 @@
                     <th width="14%"><span>Address</span></th>
                     <td width="46%"><span>${booking.customerAddress}</span></td>
                     <th width="14%"><span>Invoice No</span></th>
-                    <td colspan="3" width="20%"><span>${booking.billGeneration.billNo}</span></td>
+                    <td colspan="3" width="20%"><span>${booking.billGeneration.invoiceNo}</span></td>
                 </tr>
                 <tr>
                     <th width="14%"><span>Phone No</span></th>

@@ -69,6 +69,12 @@ class BillGenerationController {
         billGeneration.balPaymentAmt=balPaymentAmt
         billGeneration.balPaymentBy = params.balPaymentBy
         billGeneration.invoiceNo = params.billNo
+        if(billGeneration.balPaymentBy=="Cash")
+        {double totalCash= billGeneration.cashAdvance+billGeneration.balPaymentAmt}
+        if(billGeneration.balPaymentBy=="Oyo")
+        {double totalOyo= billGeneration.oyoAdvance+billGeneration.balPaymentAmt}
+        if(billGeneration.balPaymentBy=="Paytm")
+        {double totalPaytm= billGeneration.paytmAdvance+billGeneration.balPaymentAmt}
 
         billGeneration.save(flush: true,failOnError : true)
         Booking booking = Booking.findByBillGeneration(billGeneration)
@@ -143,7 +149,7 @@ class BillGenerationController {
         def tRoom= booking.billGeneration.roomDetails.size().toInteger()
         testuser.HotelDetails hotelDetails = testuser.HotelDetails.findByHotelRegistration(hr)
         //render(view: 'billTemp',model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
-        renderPdf(template: 'billPdf', model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
+        renderPdf(template: 'billPdfA5', model: [booking:booking,hr: hr,hotelDetails:hotelDetails,total:total,tRoom:tRoom])
     }
 
     def viewBill()

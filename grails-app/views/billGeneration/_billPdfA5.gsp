@@ -118,6 +118,11 @@
         size:  210mm 148mm;
         margin: 0 0 0 0 ;
     }
+    heading{
+        font-weight: bold;
+        font-size: 30px;
+        padding-top: inherit
+    }
     </style>
 
 </head>
@@ -125,7 +130,7 @@
     <header>
         <h2>Tax Invoice</h2>
         <address>
-            <a href="https://invoice-app.scalingo.io/default/dash"><p style="font-weight: bold; font-size: 30px; padding-top: inherit" >${hr.hotelName}</p></a>
+            <a href="https://invoice-app.scalingo.io/default/dash"><heading>${hr.hotelName}</heading></a>
             <p>Address: ${hr.address}</p>
             <p>Phone No: 9890989000</p>
             <p>GST No: ${hr.gstin}</p>
@@ -145,7 +150,7 @@
                     <th width="14%"><span>Address</span></th>
                     <td width="46%"><span>${booking.customerAddress}</span></td>
                     <th width="14%"><span>Invoice No</span></th>
-                    <td colspan="3" width="20%"><span>${booking.billGeneration.billNo}</span></td>
+                    <td colspan="3" width="20%"><span>${booking.billGeneration.invoiceNo}</span></td>
                 </tr>
                 <tr>
                     <th width="14%"><span>Phone No</span></th>
